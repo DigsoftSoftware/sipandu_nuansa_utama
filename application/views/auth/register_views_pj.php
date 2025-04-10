@@ -11,24 +11,39 @@
                 <img src="<?= base_url('assets/images/logos/icon.png'); ?>" width="180" alt="">
               </a>
               <p class="text-center">Daftar Akun Khusus Penanggung Jawab di Wilayah Nuansa Utama</p>
-              <form action="<?= base_url('auth/login_process'); ?>" method="post">
-                <div class="mb-3">
-                  <label for="username" class="form-label">Nama Penanggung Jawab</label>
-                  <input type="email" class="form-control" id="username" name="username" required>
-                </div>
-                <div class="mb-3">
-                  <label for="password" class="form-label">No Telepon</label>
-                  <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-                <div class="mb-3">
-                  <label for="password" class="form-label">Email</label>
-                  <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-                <div class="mb-4">
-                  <label for="password" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Daftar</button>
+              
+              <form method="post" action="<?= base_url('daftar/submit_pj') ?>">
+                  <input type="hidden" name="token" value="<?= $token ?>">
+                      <div class="mb-3">
+                          <label class="form-label">Username</label>
+                          <input type="text" name="username" class="form-control" required>
+                      </div>
+                      <div class="mb-3">
+                          <label class="form-label">Password</label>
+                          <input type="password" name="password" class="form-control" required>
+                      </div>
+                      <div class="mb-3">
+                          <label class="form-label">Nama Lengkap</label>
+                          <input type="text" name="nama" class="form-control" required>
+                      </div>
+                      <div class="mb-3">
+                          <label class="form-label">Alamat</label>  
+                          <textarea name="alamat" class="form-control" required></textarea>
+                      </div>
+                      <div class="mb-3">
+                          <label class="form-label">Nomor HP</label>
+                          <input type="text" name="no_hp" class="form-control" required>
+                      </div>
+                      <div class="mb-3">
+                          <label class="form-label">Wilayah</label>
+                          <select class="form-select" name="wilayah_id" required>
+                              <option value="">Pilih Wilayah</option>
+                              <?php foreach ($wilayah as $w): ?>
+                                  <option value="<?= $w->id ?>"><?= $w->wilayah ?></option>
+                              <?php endforeach; ?>
+                          </select>
+                      </div>
+                   <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Daftar</button>
               </form>
             </div>
           </div>

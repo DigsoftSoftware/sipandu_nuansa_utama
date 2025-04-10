@@ -7,14 +7,14 @@
         <div class="col-md-8 col-lg-6 col-xxl-3">
           <div class="card mb-0">
             <div class="card-body">
-              <a href="<?= base_url(); ?>" class="text-nowrap logo-img text-center d-block py-3 w-100">
+              <a href="<?= base_url('auth/process_login') ?>" class="text-nowrap logo-img text-center d-block py-3 w-100">
                 <img src="<?= base_url('assets/images/logos/icon.png'); ?>" width="180" alt="">
               </a>
-              <p class="text-center">Login - SIPADU Nuansa Utama</p>
-              <form action="<?= base_url('auth/login_process'); ?>" method="post">
+              <p class="text-center">Login - SIPANDU Nuansa Utama</p>
+              <form method="post" action="<?= base_url('auth/do_login') ?>">
                 <div class="mb-3">
                   <label for="username" class="form-label">Username</label>
-                  <input type="email" class="form-control" id="username" name="username" required>
+                  <input type="text" class="form-control" id="username" name="username" required>
                 </div>
                 <div class="mb-4">
                   <label for="password" class="form-label">Password</label>
@@ -29,3 +29,46 @@
     </div>
   </div>
 </div>
+
+<!-- Swee -->
+<script>
+<?php if ($this->session->flashdata('success')): ?>
+    Swal.fire({
+        icon: 'success',
+        title: 'Sukses!',
+        text: '<?= $this->session->flashdata('success'); ?>',
+        showConfirmButton: true,
+        confirmButtonText: 'OK'
+    });
+<?php endif; ?>
+
+<?php if ($this->session->flashdata('success_login')): ?>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil Login',
+        text: '<?= $this->session->flashdata('success_login'); ?>',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true
+    });
+<?php endif; ?>
+
+<?php if ($this->session->flashdata('error')): ?>
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops!',
+        text: '<?= $this->session->flashdata('error'); ?>',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true
+    });
+<?php endif; ?>
+</script>
+
+
+
+

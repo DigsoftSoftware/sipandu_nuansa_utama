@@ -47,16 +47,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | controller and method URI segments.
 |
 | Examples:	my-controller/index	-> my_controller/index
-|		my-controller/my-method	-> my_controller/my_method
+|		    my-controller/my-method	-> my_controller/my_method
 */
+
 $route['default_controller'] = 'LoginController/login';
-$route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-// Login
-$route['daftar/kaling'] = 'LoginController/daftarKaling'; 
-$route['daftar/pj'] = 'LoginController/daftarPJ'; 
+// Pendaftaran Penanggung Jawab + Token Logic
+$route['daftar/submit_pj'] = 'DaftarPJController/submit_pj';
+$route['shortlink'] = 'DaftarPJController/generate_link_view'; 
+$route['daftar/link_pj'] = 'DaftarPJController/link_pj'; 
+$route['daftar/pj/(:any)'] = 'DaftarPJController/pj/$1';
 
-// Dashboard Home
-$route['dashboard'] = 'DashboardController/index';
+// Auth dan Loginnya
+$route['logout'] = 'LoginController/logout';
+$route['auth/do_login'] = 'LoginController/do_login';
 
+// Routes Admin
+$route['dashboard/admin'] = 'AdminDashboardController/index';
+
+// Routes Kepala Lingkungan
+$route['dashboard/kaling'] = 'KalingDashboardController/index';
+
+// Routes Penanggung Jawab
+$route['dashboard/pj'] = 'PenanggungJawabDashboardController/index';
