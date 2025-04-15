@@ -37,7 +37,9 @@
                         <p class="mb-0 fw-semibold"><?= $this->session->userdata('username'); ?></p>
                         <p class="text-muted small"><?= $this->session->userdata('role'); ?></p>
                         <hr class="my-2">
-                        <button class="btn btn-outline-primary w-50">Logout</button>
+                        <form id="logoutForm" action="<?= base_url('auth/logout') ?>" method="post">
+                          <button type="button" id="logoutButton" class="btn btn-outline-primary w-50">Logout</button>
+                        </form>
                     </div>
                 </div>
               </li>

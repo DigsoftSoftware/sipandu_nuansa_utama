@@ -4,15 +4,17 @@ class UserModel extends CI_Model {
         return $this->db->get_where('users', ['username' => $username])->row();
     }
 
-    public function insert_admin($data) {
-        return $this->db->insert('admin', $data);
+    public function insert($data) {
+        $this->db->insert('users', $data);
+        return $this->db->insert_id();
     }
 
-    public function insert_kaling($data) {
-        return $this->db->insert('kaling', $data);
+    public function update($id, $data) {
+        $this->db->where('id', $id);
+        return $this->db->update('users', $data);
     }
-
-    public function insert_pj($data) {
-        return $this->db->insert('pj', $data);
+    
+    public function delete($id) {
+        return $this->db->delete('users', ['id' => $id]);
     }
 }

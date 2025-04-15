@@ -16,9 +16,14 @@
                   <label for="username" class="form-label">Username</label>
                   <input type="text" class="form-control" id="username" name="username" required>
                 </div>
-                <div class="mb-4">
-                  <label for="password" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="password" name="password" required>
+                <div class="mb-4 position-relative">
+                  <label class="form-label">Password</label>
+                  <div class="input-group">
+                    <input type="password" name="password" class="form-control" id="inputPassword" required>
+                      <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
+                        <i class="bi bi-eye-slash" id="iconPassword"></i>
+                      </span>
+                  </div>
                 </div>
                 <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Login</button>
               </form>
@@ -30,44 +35,7 @@
   </div>
 </div>
 
-<!-- Swee -->
-<script>
-<?php if ($this->session->flashdata('success')): ?>
-    Swal.fire({
-        icon: 'success',
-        title: 'Sukses!',
-        text: '<?= $this->session->flashdata('success'); ?>',
-        showConfirmButton: true,
-        confirmButtonText: 'OK'
-    });
-<?php endif; ?>
 
-<?php if ($this->session->flashdata('success_login')): ?>
-    Swal.fire({
-        icon: 'success',
-        title: 'Berhasil Login',
-        text: '<?= $this->session->flashdata('success_login'); ?>',
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 2500,
-        timerProgressBar: true
-    });
-<?php endif; ?>
-
-<?php if ($this->session->flashdata('error')): ?>
-    Swal.fire({
-        icon: 'error',
-        title: 'Oops!',
-        text: '<?= $this->session->flashdata('error'); ?>',
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true
-    });
-<?php endif; ?>
-</script>
 
 
 

@@ -1,6 +1,6 @@
 <?php $this->load->view('partials/header'); ?>
 <?php $this->load->view('pj/sidebar_pj'); ?>
-<?php $this->load->view('pj/navbar'); ?>
+<?php $this->load->view('pj/navbar_pj'); ?>
 
 <!-- Main Content -->
 <div class="container-fluid">
@@ -15,14 +15,20 @@
                         <tr>
                             <th>Nama</th>
                             <th>Wilayah</th>
+                            <th>Wilayah</th>
+                            <th>Wilayah</th>
                         </tr>
                         </thead>
                         <tr>
                             <td>I Putu Agus Wiadnyana</td>
                             <td>Tokyo</td>
+                            <td>Tokyo</td>
+                            <td>Tokyo</td>
                         </tr>
                         <tr>
                             <td>I Putu Agus Wiadnyana</td>
+                            <td>Tokyo</td>
+                            <td>Tokyo</td>
                             <td>Tokyo</td>
                         </tr>
                         </tbody>

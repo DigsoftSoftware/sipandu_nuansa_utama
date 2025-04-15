@@ -50,8 +50,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		    my-controller/my-method	-> my_controller/my_method
 */
 
-$route['default_controller'] = 'LoginController/login';
 $route['translate_uri_dashes'] = FALSE;
+
+// Auth dan Loginnya
+$route['default_controller'] = 'AuthController/login';
+$route['auth'] = 'AuthController/login';
+$route['auth/do_login'] = 'AuthController/do_login';
+$route['auth/logout'] = 'AuthController/logout';
 
 // Pendaftaran Penanggung Jawab + Token Logic
 $route['daftar/submit_pj'] = 'DaftarPJController/submit_pj';
@@ -59,15 +64,31 @@ $route['shortlink'] = 'DaftarPJController/generate_link_view';
 $route['daftar/link_pj'] = 'DaftarPJController/link_pj'; 
 $route['daftar/pj/(:any)'] = 'DaftarPJController/pj/$1';
 
-// Auth dan Loginnya
-$route['logout'] = 'LoginController/logout';
-$route['auth/do_login'] = 'LoginController/do_login';
-
-// Routes Admin
-$route['dashboard/admin'] = 'AdminDashboardController/index';
-
-// Routes Kepala Lingkungan
+// Route Semua Dashboard
+$route['dashboard/admin'] = 'AdminDashboardController/index'; 
 $route['dashboard/kaling'] = 'KalingDashboardController/index';
-
-// Routes Penanggung Jawab
 $route['dashboard/pj'] = 'PenanggungJawabDashboardController/index';
+
+// Routes Menu Admin
+$route['dashboard/admin/view'] = 'AdminDaftarDashboardController/view'; 
+$route['dashboard/admin/create'] = 'AdminDaftarDashboardController/create';  
+$route['dashboard/admin/store'] = 'AdminDaftarDashboardController/store';    
+$route['dashboard/admin/edit/(:num)'] = 'AdminDaftarDashboardController/edit/$1';  
+$route['dashboard/admin/update/(:num)'] = 'AdminDaftarDashboardController/update/$1';  
+$route['dashboard/admin/delete/(:num)'] = 'AdminDaftarDashboardController/delete/$1'; 
+
+// Routes Menu Kaling
+$route['dashboard/kaling/view'] = 'KalingDaftarDashboardController/view';
+$route['dashboard/kaling/create'] = 'KalingDaftarDashboardController/create';
+$route['dashboard/kaling/store'] = 'KalingDaftarDashboardController/store';
+$route['dashboard/kaling/edit/(:num)'] = 'KalingDaftarDashboardController/edit/$1';
+$route['dashboard/kaling/update/(:num)'] = 'KalingDaftarDashboardController/update/$1';
+$route['dashboard/kaling/delete/(:num)'] = 'KalingDaftarDashboardController/delete/$1';
+
+// Routes Menu Wilayah
+$route['dashboard/wilayah/view'] = 'WilayahDaftarDashboardController/view';
+$route['dashboard/wilayah/create'] = 'WilayahDaftarDashboardController/create';
+$route['dashboard/wilayah/store'] = 'WilayahDaftarDashboardController/store';
+$route['dashboard/wilayah/edit/(:num)'] = 'WilayahDaftarDashboardController/edit/$1';
+$route['dashboard/wilayah/update/(:num)'] = 'WilayahDaftarDashboardController/update/$1';
+$route['dashboard/wilayah/delete/(:num)'] = 'WilayahDaftarDashboardController/delete/$1';

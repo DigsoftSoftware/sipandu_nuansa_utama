@@ -1,11 +1,11 @@
 <?php $this->load->view('partials/header'); ?>
-<?php $this->load->view('kaling/sidebar_kaling'); ?>
-<?php $this->load->view('kaling/navbar_kaling'); ?>
+<?php $this->load->view('admin/sidebar_admin'); ?>
+<?php $this->load->view('admin/navbar'); ?>
 
 <!-- Main Content -->
 <div class="container-fluid">
     <div class="mb-4">
-        <h2>Selamat Datang di Kaling, <?= $this->session->userdata('username'); ?></h2>
+        <h2>Selamat Datang di Admin, <?= $this->session->userdata('username'); ?></h2>
     </div>
     <div class="row mb-4">
         <div class="col-md-3 mb-3">

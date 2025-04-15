@@ -7,7 +7,7 @@ class DaftarPJController extends CI_Controller {
     }
 
     public function generate_link_view() {
-        $data['title']= "Short Link | Daftar Penanggung Jawab - SIPANDU NUANSA UTAMA";
+        $data['title']= "Short Link Daftar Penanggung Jawab | SIPANDU NUANSA UTAMA";
         $this->load->view('partials/header', $data);
         $this->load->view('partials/footer');
         $this->load->view('auth/generate_link');
@@ -27,7 +27,7 @@ class DaftarPJController extends CI_Controller {
         }
     
         $data['token'] = $token;
-        $data['title'] = "Daftar Penanggung Jawab - SIPANDU NUANSA UTAMA";
+        $data['title'] = "Daftar Penanggung Jawab | SIPANDU NUANSA UTAMA";
 
         $this->load->model('WilayahModel');
         $data['wilayah'] = $this->WilayahModel->get_all();
@@ -44,7 +44,7 @@ class DaftarPJController extends CI_Controller {
     
         if (!$valid_token) {
             $this->session->set_flashdata('error', 'Token sudah tidak valid!');
-            redirect('/');
+            redirect('auth');
             return;
         }
     
@@ -72,6 +72,6 @@ class DaftarPJController extends CI_Controller {
         $this->TokenModel->mark_token_as_used($token, $pj_id);
     
         $this->session->set_flashdata('success', 'Pendaftaran berhasil! Silakan login.');
-        redirect('/');
+        redirect('auth');
     }    
 }

@@ -18,9 +18,14 @@
                           <label class="form-label">Username</label>
                           <input type="text" name="username" class="form-control" required>
                       </div>
-                      <div class="mb-3">
-                          <label class="form-label">Password</label>
-                          <input type="password" name="password" class="form-control" required>
+                      <div class="mb-3 position-relative">
+                        <label class="form-label">Password</label>
+                        <div class="input-group">
+                        <input type="password" name="password" class="form-control" id="inputPassword" required>
+                        <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
+                          <i class="bi bi-eye-slash" id="iconPassword"></i>
+                        </span>
+                        </div>
                       </div>
                       <div class="mb-3">
                           <label class="form-label">Nama Lengkap</label>
@@ -52,3 +57,14 @@
     </div>
   </div>
 </div>
+
+<script>
+  $('#togglePassword').on('click', function () {
+    const $passwordInput = $('#inputPassword');
+    const $icon = $('#iconPassword');
+    const type = $passwordInput.attr('type') === 'password' ? 'text' : 'password';
+    $passwordInput.attr('type', type);
+    $icon.toggleClass('bi-eye bi-eye-slash');
+  });
+</script>
+

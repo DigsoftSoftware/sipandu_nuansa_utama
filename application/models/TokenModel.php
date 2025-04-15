@@ -5,7 +5,7 @@ class TokenModel extends CI_Model {
     }
     
     public function generate_token() {
-        $token = md5(uniqid(rand(), true));
+        $token = bin2hex(random_bytes(32));
         $data = [
             'token' => $token,
             'created_at' => date('Y-m-d H:i:s'),
