@@ -14,13 +14,14 @@ class MY_Controller extends CI_Controller {
     }
 
     protected function check_role($allowed_roles = []) {
-        $role = strtolower($this->session->userdata('role'));
-        $allowed_roles = array_map('strtolower', $allowed_roles); 
-        if (!in_array($role, $allowed_roles)) {
-            $this->session->set_flashdata('error', 'Silakan login kembali!');
-            redirect('auth');
+    $role = strtolower($this->session->userdata('role'));
+    $allowed_roles = array_map('strtolower', $allowed_roles); 
+    if (!in_array($role, $allowed_roles)) {
+        redirect('dashboard/error');
         }
     }
+
+    
     
 }
 

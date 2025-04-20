@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class WilayahDaftarDashboardController extends MY_Controller {
+class WilayahDashboardController extends MY_Controller {
     public function __construct() {
         parent::__construct();
-        $this->check_role(['Admin']);
+        $this->check_role(['Admin', 'Kepala Lingkungan']);
         $this->load->model('WilayahModel');
         $this->load->library('form_validation');
     }
@@ -12,12 +12,12 @@ class WilayahDaftarDashboardController extends MY_Controller {
     public function view() {
         $data['wilayah'] = $this->WilayahModel->get_all();
         $data['title'] = "Data Wilayah | SIPANDU Nuansa Utama";
-        $this->load->view('admin/wilayah_list', $data);
+        $this->load->view('wilayah/wilayah_list', $data);
     }
 
     public function create() {
         $data['title'] = "Tambah Wilayah | SIPANDU Nuansa Utama";
-        $this->load->view('admin/wilayah_create', $data);
+        $this->load->view('wilayah/wilayah_create', $data);
     }
 
     public function store() {
@@ -39,7 +39,7 @@ class WilayahDaftarDashboardController extends MY_Controller {
     public function edit($id) {
         $data['wilayah'] = $this->WilayahModel->get_by_id($id);
         $data['title'] = "Edit Wilayah | SIPANDU Nuansa Utama";
-        $this->load->view('admin/wilayah_edit', $data);
+        $this->load->view('wilayah/wilayah_edit', $data);
     }
 
     public function update($id) {

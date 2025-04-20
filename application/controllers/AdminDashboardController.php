@@ -8,6 +8,6 @@ class AdminDashboardController extends MY_Controller {
     }
     public function index() {
         $data['title'] = "Dashboard Admin | SIPANDU Nuansa Utama";
-        $this->load->view('admin/dashboard', $data);
+        $this->load->view('admin/dashboard_admin', $data);
     }
 }

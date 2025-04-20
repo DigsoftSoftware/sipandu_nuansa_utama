@@ -14,13 +14,13 @@ class KalingDaftarDashboardController extends MY_Controller {
     public function view() {
         $data['title'] = "Data Kepala Lingkungan | SIPANDU Nuansa Utama";
         $data['kaling'] = $this->KalingModel->getAll();
-        $this->load->view('admin/kaling_list', $data);
+        $this->load->view('kaling/kaling_list', $data);
     }
 
     public function create() {
         $data['wilayah'] = $this->WilayahModel->get_all(); 
         $data['title'] = "Buat Akun Kepala Lingkungan | SIPANDU Nuansa Utama";
-        $this->load->view('admin/kaling_create', $data);  
+        $this->load->view('kaling/kaling_create', $data);  
     }
     
 
@@ -62,7 +62,7 @@ class KalingDaftarDashboardController extends MY_Controller {
         $data['kaling'] = $this->KalingModel->getUserId($id);
         $data['wilayah'] = $this->WilayahModel->get_all();
         $data['title'] = "Edit Akun Kepala Lingkungan | SIPANDU Nuansa Utama";
-        $this->load->view('admin/kaling_edit', $data);
+        $this->load->view('kaling/kaling_edit', $data);
     }
 
     public function update($id) {

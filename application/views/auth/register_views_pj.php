@@ -18,6 +18,10 @@
                           <label class="form-label">Username</label>
                           <input type="text" name="username" class="form-control" required>
                       </div>
+                      <div class="mb-3">
+                          <label class="form-label">Email</label>
+                          <input type="email" name="email" class="form-control" required>
+                      </div>
                       <div class="mb-3 position-relative">
                         <label class="form-label">Password</label>
                         <div class="input-group">

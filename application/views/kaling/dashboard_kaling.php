@@ -1,6 +1,6 @@
 <?php $this->load->view('partials/header'); ?>
-<?php $this->load->view('kaling/sidebar_kaling'); ?>
-<?php $this->load->view('kaling/navbar_kaling'); ?>
+<?php $this->load->view('partials/sidebar'); ?>
+<?php $this->load->view('partials/navbar'); ?>
 
 <!-- Main Content -->
 <div class="container-fluid">

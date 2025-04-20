@@ -49,7 +49,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		    my-controller/my-method	-> my_controller/my_method
 */
-
+$route['404_override'] = 'ErrorController/error_404';
+$route['dashboard/error'] = 'ErrorController/error_403';
 $route['translate_uri_dashes'] = FALSE;
 
 // Auth dan Loginnya
@@ -85,10 +86,16 @@ $route['dashboard/kaling/edit/(:num)'] = 'KalingDaftarDashboardController/edit/$
 $route['dashboard/kaling/update/(:num)'] = 'KalingDaftarDashboardController/update/$1';
 $route['dashboard/kaling/delete/(:num)'] = 'KalingDaftarDashboardController/delete/$1';
 
+// Routes Menu Penanggung Jawab
+$route['dashboard/pj/view'] = 'PenanggungJawabDashboardController/view';
+$route['dashboard/pj/edit/(:num)'] = 'PenanggungJawabDashboardController/edit/$1';
+$route['dashboard/pj/update/(:num)'] = 'PenanggungJawabDashboardController/update/$1';
+$route['dashboard/pj/delete/(:num)'] = 'PenanggungJawabDashboardController/delete/$1';
+
 // Routes Menu Wilayah
-$route['dashboard/wilayah/view'] = 'WilayahDaftarDashboardController/view';
-$route['dashboard/wilayah/create'] = 'WilayahDaftarDashboardController/create';
-$route['dashboard/wilayah/store'] = 'WilayahDaftarDashboardController/store';
-$route['dashboard/wilayah/edit/(:num)'] = 'WilayahDaftarDashboardController/edit/$1';
-$route['dashboard/wilayah/update/(:num)'] = 'WilayahDaftarDashboardController/update/$1';
-$route['dashboard/wilayah/delete/(:num)'] = 'WilayahDaftarDashboardController/delete/$1';
+$route['dashboard/wilayah/view'] = 'WilayahDashboardController/view';
+$route['dashboard/wilayah/create'] = 'WilayahDashboardController/create';
+$route['dashboard/wilayah/store'] = 'WilayahDashboardController/store';
+$route['dashboard/wilayah/edit/(:num)'] = 'WilayahDashboardController/edit/$1';
+$route['dashboard/wilayah/update/(:num)'] = 'WilayahDashboardController/update/$1';
+$route['dashboard/wilayah/delete/(:num)'] = 'WilayahDashboardController/delete/$1';

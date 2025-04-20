@@ -1,6 +1,6 @@
 <?php $this->load->view('partials/header'); ?>
-<?php $this->load->view('admin/sidebar_admin'); ?>
-<?php $this->load->view('admin/navbar'); ?>
+<?php $this->load->view('partials/sidebar'); ?>
+<?php $this->load->view('partials/navbar'); ?>
 
 <div class="container-fluid">
     <div class="datatables">

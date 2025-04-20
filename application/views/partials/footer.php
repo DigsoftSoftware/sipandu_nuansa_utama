@@ -1,6 +1,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 <script src="<?= base_url('/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js'); ?>"></script>
 <script src="<?= base_url('/assets/js/sidebarmenu.js'); ?>"></script>
 <script src="<?= base_url('/assets/js/app.min.js'); ?>"></script>
@@ -11,7 +11,6 @@
 
 
 <script>
-  // Untuk Bagian Register dan Login //
   $(document).ready(function () {
     $('#togglePassword').on('click', function () {
       const $passwordInput = $('#inputPassword');
@@ -57,7 +56,6 @@
 
   });
 
-  // Untuk Bagian Logout //
   $(document).ready(function () {
     $('#logoutButton').on('click', function () {
       Swal.fire({

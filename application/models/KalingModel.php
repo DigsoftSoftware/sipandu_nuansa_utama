@@ -19,7 +19,6 @@ class KalingModel extends CI_Model {
         return $this->db->get()->row();
     }
     
-
     public function insert($data) {
         $this->db->insert('kaling', $data);
     }

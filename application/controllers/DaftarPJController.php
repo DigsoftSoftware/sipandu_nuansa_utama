@@ -61,6 +61,7 @@ class DaftarPJController extends CI_Controller {
         $pj_data = [
             'user_id' => $user_id,
             'nama' => $this->input->post('nama'),
+            'email' => $this->input->post('email'),
             'alamat' => $this->input->post('alamat'),
             'no_hp' => $this->input->post('no_hp'),
             'wilayah_id' => $this->input->post('wilayah_id')
