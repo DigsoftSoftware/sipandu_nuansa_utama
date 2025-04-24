@@ -1,6 +1,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.1/dist/tesseract.min.js"></script>
 <script src="<?= base_url('/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js'); ?>"></script>
 <script src="<?= base_url('/assets/js/sidebarmenu.js'); ?>"></script>
 <script src="<?= base_url('/assets/js/app.min.js'); ?>"></script>
@@ -11,51 +12,6 @@
 
 
 <script>
-  $(document).ready(function () {
-    $('#togglePassword').on('click', function () {
-      const $passwordInput = $('#inputPassword');
-      const $icon = $('#iconPassword');
-      const type = $passwordInput.attr('type') === 'password' ? 'text' : 'password';
-      $passwordInput.attr('type', type);
-      $icon.toggleClass('bi-eye bi-eye-slash');
-    });
-
-    <?php if ($this->session->flashdata('success')): ?>
-      Swal.fire({
-        icon: 'success',
-        title: 'Sukses!',
-        text: '<?= $this->session->flashdata('success'); ?>',
-        showConfirmButton: true,
-        confirmButtonText: 'OK'
-      });
-    <?php endif; ?>
-
-    <?php if ($this->session->flashdata('success_login')): ?>
-      Swal.fire({
-        icon: 'success',
-        title: 'Berhasil Login',
-        text: '<?= $this->session->flashdata('success_login'); ?>',
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 6000,
-        timerProgressBar: true
-      });
-    <?php endif; ?>
-
-    <?php if ($this->session->flashdata('error')): ?>
-    Swal.fire({
-        icon: 'error',
-        title: 'Oops!',
-        text: '<?= $this->session->flashdata('error'); ?>',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true
-    });
-    <?php endif; ?>
-
-  });
-
   $(document).ready(function () {
     $('#logoutButton').on('click', function () {
       Swal.fire({
@@ -71,12 +27,42 @@
         }
       });
     });
+
+    $('.delete-button').on('click', function (e) {
+      e.preventDefault();
+      const href = $(this).attr('href');
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'This action cannot be undone!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = href;
+        }
+      });
+    });
   });
+
+  <?php if ($this->session->flashdata('success_login')): ?>
+      Swal.fire({
+        icon: 'success',
+        title: 'Berhasil Login',
+        text: '<?= $this->session->flashdata('success_login'); ?>',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true
+      });
+  <?php endif; ?>
 
   <?php if ($this->session->flashdata('success')): ?>
     Swal.fire({
       icon: 'success',
-      title: 'Logout Berhasil!',
+      title: 'Berhasil!',
       text: '<?= $this->session->flashdata('success'); ?>',
       position: 'center',
       showConfirmButton: false,
@@ -86,6 +72,8 @@
   <?php endif; ?>
 
 </script>
+
+
 
 </body>
 </html>

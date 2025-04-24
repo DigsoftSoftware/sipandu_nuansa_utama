@@ -1,5 +1,5 @@
 <body class="container mt-5">
-    <div class="d-flex justify-content-center align-items-center min-vh-100 flex-column text-center">
+    <div class="d-flex justify-content-center align-items-center flex-column text-center">
         <a href="<?= base_url('shortlink') ?>" class="text-nowrap logo-img d-block py-3">
             <img src="<?= base_url('assets/images/logos/icon_full.png'); ?>" width="300" alt="">
         </a>

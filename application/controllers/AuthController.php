@@ -8,9 +8,8 @@ class AuthController extends CI_Controller {
 
     public function login() {
         $data['title'] = "Login - SIPANDU NUANSA UTAMA";
-        $this->load->view('partials/header', $data);
-        $this->load->view('auth/login_views');
-        $this->load->view('partials/footer');
+        $this->load->view('auth/login_views', $data);
+        
     }
     public function do_login() {
         $username = $this->input->post('username');
@@ -23,14 +22,23 @@ class AuthController extends CI_Controller {
             $this->session->set_userdata('username', $user->username);
             $this->session->set_userdata('role', $user->role);
 
+            // Jika role adalah Penanggung Jawab, ambil pj_id
+            if ($user->role === 'Penanggung Jawab') {
+                $this->load->model('PenanggungJawabModel');
+                $pj = $this->PenanggungJawabModel->getByUserId($user->id);
+                if ($pj) {
+                    $this->session->set_userdata('pj_id', $pj->id);
+                }
+            }
+
             $this->session->set_flashdata('success_login', 'Selamat datang di Dashboard SIPANDU, ' . $user->username . '!');
     
             if ($user->role === 'Admin') {
-                redirect('dashboard/admin');
+                redirect('dashboard');
             } elseif ($user->role === 'Kepala Lingkungan') {
-                redirect('dashboard/kaling');
+                redirect('dashboard');
             } elseif ($user->role === 'Penanggung Jawab') {
-                redirect('dashboard/pj');
+                redirect('dashboard/penghuni/viewpj');
             } else {
                 $this->session->set_flashdata('error', 'Akses Ditolak');
                 redirect('auth');

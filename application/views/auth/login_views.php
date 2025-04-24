@@ -1,4 +1,4 @@
-<!-- Body Wrapper -->
+<?php $this->load->view('partials/header'); ?>
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
   data-sidebar-position="fixed" data-header-position="fixed">
   <div class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
@@ -35,8 +35,54 @@
   </div>
 </div>
 
+<?php $this->load->view('partials/footer'); ?>
+
+<script>
+    $(document).ready(function () {
+    $('#togglePassword').on('click', function () {
+      const $passwordInput = $('#inputPassword');
+      const $icon = $('#iconPassword');
+      const type = $passwordInput.attr('type') === 'password' ? 'text' : 'password';
+      $passwordInput.attr('type', type);
+      $icon.toggleClass('bi-eye bi-eye-slash');
+    });
+
+    <?php if ($this->session->flashdata('success')): ?>
+      Swal.fire({
+        icon: 'success',
+        title: 'Sukses!',
+        text: '<?= $this->session->flashdata('success'); ?>',
+        showConfirmButton: true,
+        confirmButtonText: 'OK'
+      });
+    <?php endif; ?>
+
+    <?php if ($this->session->flashdata('success_login')): ?>
+      Swal.fire({
+        icon: 'success',
+        title: 'Berhasil Login',
+        text: '<?= $this->session->flashdata('success_login'); ?>',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 6000,
+        timerProgressBar: true
+      });
+    <?php endif; ?>
 
 
+    <?php if ($this->session->flashdata('error')): ?>
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops!',
+        text: '<?= $this->session->flashdata('error'); ?>',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true
+    });
+    <?php endif; ?>
+  });
+</script>
 
 
 

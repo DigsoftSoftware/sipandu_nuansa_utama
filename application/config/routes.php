@@ -49,6 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		    my-controller/my-method	-> my_controller/my_method
 */
+
 $route['404_override'] = 'ErrorController/error_404';
 $route['dashboard/error'] = 'ErrorController/error_403';
 $route['translate_uri_dashes'] = FALSE;
@@ -58,6 +59,8 @@ $route['default_controller'] = 'AuthController/login';
 $route['auth'] = 'AuthController/login';
 $route['auth/do_login'] = 'AuthController/do_login';
 $route['auth/logout'] = 'AuthController/logout';
+$route['auth/ajax_validate_login'] = 'AuthController/ajax_validate_login';
+
 
 // Pendaftaran Penanggung Jawab + Token Logic
 $route['daftar/submit_pj'] = 'DaftarPJController/submit_pj';
@@ -65,10 +68,8 @@ $route['shortlink'] = 'DaftarPJController/generate_link_view';
 $route['daftar/link_pj'] = 'DaftarPJController/link_pj'; 
 $route['daftar/pj/(:any)'] = 'DaftarPJController/pj/$1';
 
-// Route Semua Dashboard
-$route['dashboard/admin'] = 'AdminDashboardController/index'; 
-$route['dashboard/kaling'] = 'KalingDashboardController/index';
-$route['dashboard/pj'] = 'PenanggungJawabDashboardController/index';
+// Route Dashboard
+$route['dashboard'] = 'HomeDashboardController/index'; 
 
 // Routes Menu Admin
 $route['dashboard/admin/view'] = 'AdminDaftarDashboardController/view'; 
@@ -81,7 +82,7 @@ $route['dashboard/admin/delete/(:num)'] = 'AdminDaftarDashboardController/delete
 // Routes Menu Kaling
 $route['dashboard/kaling/view'] = 'KalingDaftarDashboardController/view';
 $route['dashboard/kaling/create'] = 'KalingDaftarDashboardController/create';
-$route['dashboard/kaling/store'] = 'KalingDaftarDashboardController/store';
+$route['dashboard/kaling/store'] = 'KalingDaftarDashboardController.store';
 $route['dashboard/kaling/edit/(:num)'] = 'KalingDaftarDashboardController/edit/$1';
 $route['dashboard/kaling/update/(:num)'] = 'KalingDaftarDashboardController/update/$1';
 $route['dashboard/kaling/delete/(:num)'] = 'KalingDaftarDashboardController/delete/$1';
@@ -90,7 +91,7 @@ $route['dashboard/kaling/delete/(:num)'] = 'KalingDaftarDashboardController/dele
 $route['dashboard/pj/view'] = 'PenanggungJawabDashboardController/view';
 $route['dashboard/pj/edit/(:num)'] = 'PenanggungJawabDashboardController/edit/$1';
 $route['dashboard/pj/update/(:num)'] = 'PenanggungJawabDashboardController/update/$1';
-$route['dashboard/pj/delete/(:num)'] = 'PenanggungJawabDashboardController/delete/$1';
+$route['dashboard/pj/delete/(:num)'] = 'PenanggungJawabDashboardController.delete/$1';
 
 // Routes Menu Wilayah
 $route['dashboard/wilayah/view'] = 'WilayahDashboardController/view';
@@ -98,4 +99,24 @@ $route['dashboard/wilayah/create'] = 'WilayahDashboardController/create';
 $route['dashboard/wilayah/store'] = 'WilayahDashboardController/store';
 $route['dashboard/wilayah/edit/(:num)'] = 'WilayahDashboardController/edit/$1';
 $route['dashboard/wilayah/update/(:num)'] = 'WilayahDashboardController/update/$1';
-$route['dashboard/wilayah/delete/(:num)'] = 'WilayahDashboardController/delete/$1';
+$route['dashboard/wilayah/delete/(:num)'] = 'WilayahDashboardController.delete/$1';
+
+// Routes Menu Penghuni
+$route['dashboard/penghuni/view'] = 'PenghuniDashboardController/index';
+$route['dashboard/penghuni/detail/(:num)'] = 'PenghuniDashboardController/detail/$1';
+$route['dashboard/penghuni/create'] = 'PenghuniDashboardController/create';
+$route['dashboard/penghuni/create_admin'] = 'PenghuniDashboardController/create_admin';
+$route['dashboard/penghuni/store'] = 'PenghuniDashboardController/store';
+$route['dashboard/penghuni/store_admin'] = 'PenghuniDashboardController.store_admin';
+$route['dashboard/penghuni/verifikasi/(:num)/(:any)'] = 'PenghuniDashboardController/verifikasi/$1/$2';
+$route['dashboard/penghuni/viewpj'] = 'PenghuniDashboardController/index_pj';
+$route['dashboard/penghuni/delete/(:num)'] = 'PenghuniDashboardController/delete/$1';
+
+// Routes untuk Surat
+$route['dashboard/surat/izin-tinggal'] = 'SuratController/form_surat_izin_tinggal';
+$route['dashboard/surat/pernyataan'] = 'SuratController/form_surat_pernyataan';
+$route['dashboard/surat/generate_surat_izin_tinggal'] = 'SuratController/generate_surat_izin_tinggal';
+$route['dashboard/surat/generate_surat_pernyataan'] = 'SuratController/generate_surat_pernyataan';
+$route['dashboard/surat/view'] = 'SuratController/index';
+$route['dashboard/surat/generate_surat_izin_tinggal/(:num)'] = 'SuratController/generate_surat_izin_tinggal/$1';
+$route['dashboard/surat/generate_surat_pernyataan/(:num)'] = 'SuratController/generate_surat_pernyataan/$1';

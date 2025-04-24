@@ -16,6 +16,10 @@ class PenanggungJawabModel extends CI_Model {
         return $this->db->get()->row();
     }
 
+    public function getByUserId($user_id) {
+        return $this->db->get_where('penanggung_jawab', ['user_id' => $user_id])->row();
+    }
+
     public function update($id, $data) {
         $this->db->where('id', $id);
         return $this->db->update('penanggung_jawab', $data);
@@ -24,7 +28,7 @@ class PenanggungJawabModel extends CI_Model {
     public function delete($id) {
         $pj = $this->getById($id);
         if ($pj) {
-            $this->db->delete('users', ['id' => $pj->user_id]); // otomatis hapus penanggung_jawab karena ON DELETE CASCADE
+            $this->db->delete('users', ['id' => $pj->user_id]); 
         }
     }
 }

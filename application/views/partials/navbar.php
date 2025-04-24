@@ -19,7 +19,7 @@
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
                 <!-- <li class="nav-item me-3">
                     <div class="d-flex align-items-center border rounded p-2 shadow-sm bg-white">
-                        <img src="<?= base_url('/assets/images/profile/user-1.jpg'); ?>" alt="User" width="40" height="40" class="rounded-circle me-2">
+                        <img src="<?= base_url('/assets/images/profile/foto.png'); ?>" alt="User" width="40" height="40" class="rounded-circle me-2">
                         <div>
                             <div class="fw-bold mb-0"><?= $this->session->userdata('username'); ?></div>
                             <small class="text-muted"><?= $this->session->userdata('role'); ?></small>

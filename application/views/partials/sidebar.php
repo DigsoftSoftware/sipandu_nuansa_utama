@@ -1,13 +1,9 @@
-<?php $role = $this->session->userdata('role'); ?>
-
-
-<!--  Body Wrapper -->
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
     <aside class="left-sidebar">
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="<?= site_url('dashboard/admin'); ?>" class="text-nowrap logo-img"><br>
+          <a class="text-nowrap logo-img"><br>
           <img src="<?= base_url('assets/images/logos/icon_full.png'); ?>" width="200" alt="">
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -22,14 +18,16 @@
                 <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                 <span class="hide-menu">Home</span>
                 </li>
-
-                <?php if ($role == 'Admin'): ?>
+                <?php if (in_array($role, ['Admin', 'Kepala Lingkungan'])): ?>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= site_url('dashboard/admin'); ?>">
-                    <i class="ti ti-layout-dashboard"></i>
-                    <span class="hide-menu">Dashboard</span>
+                    <a class="sidebar-link" href="<?= site_url('dashboard'); ?>">
+                        <i class="ti ti-layout-dashboard"></i>
+                        <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
+                <?php endif; ?>
+                
+                <?php if ($role == 'Admin'): ?>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="<?= site_url('dashboard/admin/view'); ?>">
                     <i class="ti ti-user-shield"></i>
@@ -57,27 +55,36 @@
                     <span class="hide-menu">Data Wilayah</span>
                     </a>
                 </li>
-                <?php endif; ?>
-
-                <?php if (in_array($role, ['Admin', 'Kepala Lingkungan', 'Penanggung Jawab'])): ?>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= site_url('dashboard/penghuni'); ?>">
+                    <a class="sidebar-link" href="<?= site_url('dashboard/penghuni/view'); ?>">
                     <i class="ti ti-users"></i>
                     <span class="hide-menu">Data Penghuni</span>
                     </a>
                 </li>
                 <?php endif; ?>
 
+                <?php if (in_array($role, ['Penanggung Jawab'])): ?>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= site_url('dashboard/penghuni/viewpj'); ?>">
+                    <i class="ti ti-users"></i>
+                    <span class="hide-menu">Data Penghuni</span>
+                    </a>
+                </li>
+                <?php endif; ?>
+                
                 <li class="nav-small-cap">
                 <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                 <span class="hide-menu">Dokumen</span>
                 </li>
+                
+                <?php if (in_array($role, ['Admin', 'Kepala Lingkungan','Penanggung Jawab'])): ?>
                 <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="<?= site_url('dashboard/surat/view'); ?>">
                     <i class="ti ti-file-description"></i>
                     <span class="hide-menu">Surat - Surat</span>
                 </a>
                 </li>
+                <?php endif; ?>
 
                 <?php if (in_array($role, ['Admin', 'Kepala Lingkungan'])): ?>
                 <li class="sidebar-item">
