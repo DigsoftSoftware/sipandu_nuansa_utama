@@ -88,7 +88,7 @@
 
                 <?php if (in_array($role, ['Admin', 'Kepala Lingkungan'])): ?>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                    <a class="sidebar-link" href="<?= site_url('dashboard/report/view'); ?>">
                     <i class="ti ti-report"></i>
                     <span class="hide-menu">Laporan</span>
                     </a>
@@ -103,6 +103,7 @@
                 <p class="card-text"><strong><?= ucfirst($this->session->userdata('role')); ?></strong></p>
                 </div>
             </div>
+
             </nav>
 
       </div>

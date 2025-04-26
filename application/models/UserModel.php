@@ -17,4 +17,9 @@ class UserModel extends CI_Model {
     public function delete($id) {
         return $this->db->delete('users', ['id' => $id]);
     }
+
+    public function update_password($user_id, $new_password) {
+        $this->db->where('id', $user_id);
+        return $this->db->update('users', ['password' => $new_password]);
+    }
 }

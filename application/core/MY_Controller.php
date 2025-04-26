@@ -19,9 +19,7 @@ class MY_Controller extends CI_Controller {
     if (!in_array($role, $allowed_roles)) {
         redirect('dashboard/error');
         }
-    }
-
-    
+    }    
     
 }
 

@@ -17,38 +17,54 @@ class AuthController extends CI_Controller {
     
         $user = $this->UserModel->get_by_username($username);
     
-        if ($user && password_verify($password, $user->password)) {
-            $this->session->set_userdata('user_id', $user->id);
-            $this->session->set_userdata('username', $user->username);
-            $this->session->set_userdata('role', $user->role);
-
-            // Jika role adalah Penanggung Jawab, ambil pj_id
-            if ($user->role === 'Penanggung Jawab') {
-                $this->load->model('PenanggungJawabModel');
-                $pj = $this->PenanggungJawabModel->getByUserId($user->id);
-                if ($pj) {
-                    $this->session->set_userdata('pj_id', $pj->id);
-                }
+        if ($user) {
+            // Check if password needs to be hashed
+            if (!$this->_is_hashed($user->password)) {
+                // Hash the password and update in database
+                $hashed_password = password_hash($user->password, PASSWORD_BCRYPT);
+                $this->UserModel->update_password($user->id, $hashed_password);
+                $user->password = $hashed_password;
             }
 
-            $this->session->set_flashdata('success_login', 'Selamat datang di Dashboard SIPANDU, ' . $user->username . '!');
-    
-            if ($user->role === 'Admin') {
-                redirect('dashboard');
-            } elseif ($user->role === 'Kepala Lingkungan') {
-                redirect('dashboard');
-            } elseif ($user->role === 'Penanggung Jawab') {
-                redirect('dashboard/penghuni/viewpj');
+            if (password_verify($password, $user->password)) {
+                $this->session->set_userdata('user_id', $user->id);
+                $this->session->set_userdata('username', $user->username);
+                $this->session->set_userdata('role', $user->role);
+
+                if ($user->role === 'Penanggung Jawab') {
+                    $this->load->model('PenanggungJawabModel');
+                    $pj = $this->PenanggungJawabModel->getByUserId($user->id);
+                    if ($pj) {
+                        $this->session->set_userdata('pj_id', $pj->id);
+                    }
+                }
+
+                $this->session->set_flashdata('success_login', 'Selamat datang di Dashboard SIPANDU, ' . $user->username . '!');
+        
+                if ($user->role === 'Admin') {
+                    redirect('dashboard');
+                } elseif ($user->role === 'Kepala Lingkungan') {
+                    redirect('dashboard');
+                } elseif ($user->role === 'Penanggung Jawab') {
+                    redirect('dashboard/penghuni/viewpj');
+                } else {
+                    $this->session->set_flashdata('error', 'Akses Ditolak');
+                    redirect('auth');
+                }
             } else {
-                $this->session->set_flashdata('error', 'Akses Ditolak');
+                $this->session->set_flashdata('error', 'Login gagal! Username atau password salah.');
                 redirect('auth');
             }
         } else {
             $this->session->set_flashdata('error', 'Login gagal! Username atau password salah.');
             redirect('auth');
         }
-        
-    } 
+    }
+
+    private function _is_hashed($password) {
+        return strlen($password) == 60 && preg_match('/^\$2[ayb]\$.{56}$/', $password);
+    }
+
     public function logout() {
         $role = $this->session->userdata('role');
     

@@ -21,6 +21,7 @@
                     <table id="myTable" class="table table-striped table-bordered text-nowrap align-middle">
                         <thead>
                             <tr>
+                                <th>Username</th>
                                 <th>Nama</th>
                                 <th>Wilayah</th>
                                 <th class="text-center">Aksi</th>
@@ -29,6 +30,7 @@
                         <tbody>
                             <?php foreach($kaling as $row): ?>
                                 <tr>
+                                    <td><?= $row->username ?></td>
                                     <td><?= $row->nama ?></td>
                                     <td><?= $row->wilayah ?></td>
                                     <td class="text-center">

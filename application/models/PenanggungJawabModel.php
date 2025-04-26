@@ -31,4 +31,8 @@ class PenanggungJawabModel extends CI_Model {
             $this->db->delete('users', ['id' => $pj->user_id]); 
         }
     }
+
+    public function create($data) {
+        return $this->db->insert('penanggung_jawab', $data);
+    }
 }

@@ -119,8 +119,32 @@
                             <label class="form-label">Jenis Kelamin (Isi Sesuai KTP)</label>
                             <select name="jk" class="form-select" required>
                                 <option value="">Pilih Jenis Kelamin</option>
-                                <option value="LAKI-LAKI">Laki-laki</option>
-                                <option value="PEREMPUAN">Perempuan</option>
+                                <option value="LAKI - LAKI">LAKI-LAKI</option>
+                                <option value="PEREMPUAN">PEREMPUAN</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Golongan Darah</label>
+                            <select name="golongan_darah" class="form-select">
+                                <option value="">Pilih Golongan Darah</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="AB">AB</option>
+                                <option value="O">O</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Agama</label>
+                            <select name="agama" class="form-select">
+                                <option value="">Pilih Agama</option>
+                                <option value="ISLAM">ISLAM</option>
+                                <option value="KRISTEN">KRISTEN</option>
+                                <option value="KATOLIK">KATOLIK</option>
+                                <option value="HINDU">HINDU</option>
+                                <option value="BUDDHA">BUDDHA</option>
+                                <option value="KONGHUCU">KONGHUCU</option>
                             </select>
                         </div>
 
@@ -128,21 +152,35 @@
                         <div class="mb-3">
                             <label class="form-label">Provinsi Asal (Isi Sesuai KTP)</label>
                             <select id="provinsi" name="provinsi_asal" class="form-select" required></select>
+                            <input type="hidden" name="provinsi_nama" id="provinsi_nama">
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Kabupaten/Kota Asal (Isi Sesuai KTP)</label>
                             <select id="kabupaten" name="kabupaten_asal" class="form-select" required></select>
+                            <input type="hidden" name="kabupaten_nama" id="kabupaten_nama">
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Kecamatan Asal (Isi Sesuai KTP)</label>
                             <select id="kecamatan" name="kecamatan_asal" class="form-select" required></select>
+                            <input type="hidden" name="kecamatan_nama" id="kecamatan_nama">
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Kelurahan Asal (Isi Sesuai KTP)</label>
                             <select id="kelurahan" name="kelurahan_asal" class="form-select" required></select>
+                            <input type="hidden" name="kelurahan_nama" id="kelurahan_nama">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">RT</label>
+                            <input type="text" name="rt" class="form-control" placeholder="Contoh: 001">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">RW</label>
+                            <input type="text" name="rw" class="form-control" placeholder="Contoh: 002">
                         </div>
 
                         <div class="mb-3">
@@ -317,6 +355,34 @@
 
     let map, marker;
 
+    async function getAddressFromCoordinates(lat, lng) {
+        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`);
+        const data = await res.json();
+        return data.display_name || '';
+    }
+
+    async function searchLocation() {
+        const address = $('#alamat_sekarang').val();
+        if (!address) {
+            alert('Masukkan alamat terlebih dahulu');
+            return;
+        }
+
+        const res = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&limit=1`);
+        const data = await res.json();
+        
+        if (data && data.length > 0) {
+            const { lat, lon } = data[0];
+            marker.setLatLng([lat, lon]);
+            map.setView([lat, lon], 15);
+            $('#latitude').val(lat);
+            $('#longitude').val(lon);
+            $('#alamat_sekarang').val(data[0].display_name);
+        } else {
+            alert('Alamat tidak ditemukan');
+        }
+    }
+
     function initMap(lat = -6.2088, lng = 106.8456) {
         map = L.map('map').setView([lat, lng], 12);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -325,17 +391,22 @@
 
         marker = L.marker([lat, lng], { draggable: true }).addTo(map);
 
-        map.on('click', function (e) {
+        map.on('click', async function (e) {
             const { lat, lng } = e.latlng;
             marker.setLatLng([lat, lng]);
             $('#latitude').val(lat);
             $('#longitude').val(lng);
+            
+            const address = await getAddressFromCoordinates(lat, lng);
+            $('#alamat_sekarang').val(address);
         });
 
-        marker.on('dragend', function () {
+        marker.on('dragend', async function () {
             const { lat, lng } = marker.getLatLng();
             $('#latitude').val(lat);
             $('#longitude').val(lng);
+            const address = await getAddressFromCoordinates(lat, lng);
+            $('#alamat_sekarang').val(address);
         });
     }
 
@@ -343,35 +414,60 @@
         $.getJSON("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json", function (data) {
             $('#provinsi').html('<option value="">Pilih Provinsi</option>');
             $.each(data, function (i, p) {
-                $('#provinsi').append(`<option value="${p.id}">${p.name}</option>`);
+                $('#provinsi').append(`<option value="${p.name}">${p.name}</option>`);
             });
         });
 
         $('#provinsi').change(function () {
-            $.getJSON(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${this.value}.json`, function (data) {
-                $('#kabupaten').html('<option value="">Pilih Kabupaten</option>');
-                $.each(data, function (i, k) {
-                    $('#kabupaten').append(`<option value="${k.id}">${k.name}</option>`);
-                });
+            const selectedProvName = $(this).val();
+            $.getJSON("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json", function(provinces) {
+                const province = provinces.find(p => p.name === selectedProvName);
+                if (province) {
+                    $.getJSON(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${province.id}.json`, function (data) {
+                        $('#kabupaten').html('<option value="">Pilih Kabupaten</option>');
+                        $.each(data, function (i, k) {
+                            $('#kabupaten').append(`<option value="${k.name}" data-id="${k.id}">${k.name}</option>`);
+                        });
+                    });
+                }
             });
         });
 
         $('#kabupaten').change(function () {
-            $.getJSON(`https://www.emsifa.com/api-wilayah-indonesia/api/districts/${this.value}.json`, function (data) {
-                $('#kecamatan').html('<option value="">Pilih Kecamatan</option>');
-                $.each(data, function (i, kc) {
-                    $('#kecamatan').append(`<option value="${kc.id}">${kc.name}</option>`);
+            const selectedKabId = $(this).find(':selected').data('id');
+            if (selectedKabId) {
+                $.getJSON(`https://www.emsifa.com/api-wilayah-indonesia/api/districts/${selectedKabId}.json`, function (data) {
+                    $('#kecamatan').html('<option value="">Pilih Kecamatan</option>');
+                    $.each(data, function (i, kc) {
+                        $('#kecamatan').append(`<option value="${kc.name}" data-id="${kc.id}">${kc.name}</option>`);
+                    });
                 });
-            });
+            }
         });
 
         $('#kecamatan').change(function () {
-            $.getJSON(`https://www.emsifa.com/api-wilayah-indonesia/api/villages/${this.value}.json`, function (data) {
-                $('#kelurahan').html('<option value="">Pilih Kelurahan</option>');
-                $.each(data, function (i, kl) {
-                    $('#kelurahan').append(`<option value="${kl.id}">${kl.name}</option>`);
+            const selectedKecId = $(this).find(':selected').data('id');
+            if (selectedKecId) {
+                $.getJSON(`https://www.emsifa.com/api-wilayah-indonesia/api/villages/${selectedKecId}.json`, function (data) {
+                    $('#kelurahan').html('<option value="">Pilih Kelurahan</option>');
+                    $.each(data, function (i, kl) {
+                        $('#kelurahan').append(`<option value="${kl.name}">${kl.name}</option>`);
+                    });
                 });
-            });
+            }
+        });
+
+        $('#provinsi').change(function() {
+            $('#provinsi_nama').val($(this).val());
+        });
+        $('#kabupaten').change(function() {
+            $('#kabupaten_nama').val($(this).val());
+        });
+        $('#kecamatan').change(function() {
+            $('#kecamatan_nama').val($(this).val());
+        });
+        $('#kelurahan').change(function() {
+            $('#kelurahan_nama').val($(this).val());
         });
     }
 

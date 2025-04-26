@@ -5,7 +5,12 @@
 <div class="container-fluid">
     <div class="card mt-3">
         <div class="card-body">
-            <h4 class="card-title mb-3">Data Penanggung Jawab</h4>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="card-title mb-0">Data Penanggung Jawab</h4>
+                <a href="<?= base_url('dashboard/pj/create') ?>" class="btn btn-primary">
+                    <i class="ti ti-plus"></i> Tambah Penanggung Jawab
+                </a>
+            </div>
 
             <?php if($this->session->flashdata('success')): ?>
                 <script>Swal.fire("Sukses", "<?= $this->session->flashdata('success') ?>", "success");</script>

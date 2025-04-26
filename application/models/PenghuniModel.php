@@ -5,6 +5,21 @@ class PenghuniModel extends CI_Model {
 
     private $table = 'penghuni';
 
+    public function __construct() {
+        parent::__construct();
+        $this->load->helper('string');
+    }
+
+    private function generate_uuid() {
+        return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0x0fff) | 0x4000,
+            mt_rand(0, 0x3fff) | 0x8000,
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+        );
+    }
+
     public function getAll() {
         return $this->db->get('penghuni')->result();
     }
@@ -28,8 +43,12 @@ class PenghuniModel extends CI_Model {
         return $this->db->get_where('penghuni', ['id' => $id])->row();
     }
 
+    public function getByUuid($uuid) {
+        return $this->db->get_where('penghuni', ['uuid' => $uuid])->row();
+    }
 
     public function insert($data) {
+        $data['uuid'] = $this->generate_uuid();
         return $this->db->insert($this->table, $data);
     }
 
@@ -47,6 +66,33 @@ class PenghuniModel extends CI_Model {
                         ->join('penanggung_jawab pj', 'pj.id = p.penanggung_jawab_id')
                         ->join('kaling k', 'k.id = p.kaling_id')
                         ->join('wilayah w', 'w.id = p.wilayah_id')
+                        ->get()
+                        ->result();
+    }
+
+    public function getJumlahPendatangPerPJ() {
+        return $this->db->select('pj.id, pj.nama as nama_pj, COUNT(p.id) as jumlah_pendatang')
+                        ->from('penghuni p')
+                        ->join('penanggung_jawab pj', 'pj.id = p.penanggung_jawab_id')
+                        ->group_by('pj.id, pj.nama')
+                        ->get()
+                        ->result();
+    }
+
+    public function getJumlahPendatangPerTujuan() {
+        return $this->db->select('tujuan, COUNT(id) as jumlah')
+                        ->from($this->table)
+                        ->group_by('tujuan')
+                        ->get()
+                        ->result();
+    }
+
+    public function getPenghuniBaruCoordinates() {
+        return $this->db->select('nama_lengkap as nama, latitude as lat, longitude as lng')
+                        ->from($this->table)
+                        ->where('status_verifikasi', 'Diterima')
+                        ->where('latitude IS NOT NULL')
+                        ->where('longitude IS NOT NULL')
                         ->get()
                         ->result();
     }

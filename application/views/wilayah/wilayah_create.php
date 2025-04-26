@@ -17,7 +17,7 @@
                     <input type="text" name="wilayah" class="form-control" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="<?= base_url('dashboard/wilayah') ?>" class="btn btn-secondary">Kembali</a>
+                <a href="<?= base_url('dashboard/wilayah/view') ?>" class="btn btn-secondary">Kembali</a>
             </form>
         </div>
     </div>

@@ -59,8 +59,11 @@ class WilayahDashboardController extends MY_Controller {
     }
 
     public function delete($id) {
-        $this->WilayahModel->delete($id);
-        $this->session->set_flashdata('success', 'Wilayah berhasil dihapus!');
+        if (!$this->WilayahModel->delete($id)) {
+            $this->session->set_flashdata('error', 'Wilayah tidak dapat dihapus karena masih memiliki data terkait (Kepala Lingkungan, Penanggung Jawab, atau Penghuni)');
+        } else {
+            $this->session->set_flashdata('success', 'Wilayah berhasil dihapus!');
+        }
         redirect('dashboard/wilayah/view');
     }
 }

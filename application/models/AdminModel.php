@@ -16,7 +16,23 @@ class AdminModel extends CI_Model {
         return $this->db->get()->row();
     }
       
+    public function countAdmins() {
+        return $this->db->count_all('admin');
+    }
+    
+    public function countKaling() {
+        return $this->db->count_all('kaling');
+    }
+    
+    public function countWilayah() {
+        return $this->db->count_all('wilayah');
+    }
+    
+    public function countUsers() {
+        return $this->db->count_all('penghuni');
+    }
 
+    
     public function insertUser($data) {
         $this->db->insert('users', $data);
         return $this->db->insert_id();

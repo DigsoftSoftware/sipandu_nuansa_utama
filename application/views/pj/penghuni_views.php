@@ -3,9 +3,13 @@
 <?php $this->load->view('partials/navbar'); ?>
 
 <div class="container-fluid">
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex align-items-center mb-4">
         <h4 class="card-title mb-0">Data Penghuni</h4>
-        <a href="<?= base_url('dashboard/penghuni/create') ?>" class="btn btn-primary">Tambah Penghuni</a>
+        <div class="ms-auto">
+            <a href="<?= base_url('dashboard/penghuni/create_pj') ?>" class="btn btn-primary">
+                <i class="ti ti-plus me-1"></i> Tambah Penghuni
+            </a>
+        </div>
     </div>
 
     <table class="table table-striped" id="myTable">
@@ -13,7 +17,6 @@
             <tr>
                 <th>Nama</th>
                 <th>NIK</th>
-                <th>Alamat Sekarang</th>
                 <th>Tanggal Masuk</th>
                 <th>Status Verifikasi</th>
                 <th>Alasan Penolakan</th>
@@ -25,7 +28,6 @@
                 <tr>
                     <td><?= $p->nama_lengkap ?></td>
                     <td><?= $p->nik ?></td>
-                    <td><?= $p->alamat_sekarang ?></td>
                     <td><?= date('d/m/Y', strtotime($p->tanggal_masuk)) ?></td>
                     <td>
                         <?php if ($p->status_verifikasi == 'Diproses'): ?>
@@ -40,6 +42,7 @@
                     <td>
                         <a href="<?= base_url('dashboard/penghuni/detail/'.$p->id) ?>" class="btn btn-info btn-sm" title="Lihat Detail">
                             <i class="fas fa-eye"></i>
+                            Detail
                         </a>
                     </td>
                 </tr>
