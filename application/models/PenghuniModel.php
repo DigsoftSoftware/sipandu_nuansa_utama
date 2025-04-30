@@ -25,13 +25,17 @@ class PenghuniModel extends CI_Model {
     }
 
     public function getByStatus($status) {
+        $this->db->select('penghuni.*, penanggung_jawab.nama as pj_nama')
+                 ->from($this->table)
+                 ->join('penanggung_jawab', 'penanggung_jawab.id = penghuni.penanggung_jawab_id');
+
         if (is_array($status)) {
             $this->db->where_in('status_verifikasi', $status);
         } else {
             $this->db->where('status_verifikasi', $status);
         }
 
-        return $this->db->get($this->table)->result();
+        return $this->db->get()->result();
     }
 
     public function getByPJ($pj_id) {
@@ -40,7 +44,14 @@ class PenghuniModel extends CI_Model {
 
     public function getById($id)
     {
-        return $this->db->get_where('penghuni', ['id' => $id])->row();
+        return $this->db->select('penghuni.*, kaling.nama as kaling_nama, penanggung_jawab.nama as pj_nama, wilayah.wilayah')
+            ->from($this->table)
+            ->join('kaling', 'kaling.id = penghuni.kaling_id')
+            ->join('penanggung_jawab', 'penanggung_jawab.id = penghuni.penanggung_jawab_id')
+            ->join('wilayah', 'wilayah.id = penghuni.wilayah_id')
+            ->where('penghuni.id', $id)
+            ->get()
+            ->row();
     }
 
     public function getByUuid($uuid) {
@@ -71,17 +82,30 @@ class PenghuniModel extends CI_Model {
     }
 
     public function getJumlahPendatangPerPJ() {
-        return $this->db->select('pj.id, pj.nama as nama_pj, COUNT(p.id) as jumlah_pendatang')
+        $result = $this->db->select('pj.id, pj.nama as nama_pj, COUNT(p.id) as jumlah_pendatang, GROUP_CONCAT(p.nama_lengkap SEPARATOR ", ") as nama_pendatang')
                         ->from('penghuni p')
                         ->join('penanggung_jawab pj', 'pj.id = p.penanggung_jawab_id')
+                        ->where('p.status_verifikasi', 'Diterima')
                         ->group_by('pj.id, pj.nama')
                         ->get()
                         ->result();
+        return $result;
     }
 
     public function getJumlahPendatangPerTujuan() {
         return $this->db->select('tujuan, COUNT(id) as jumlah')
                         ->from($this->table)
+                        ->where('status_verifikasi', 'Diterima')
+                        ->group_by('tujuan')
+                        ->get()
+                        ->result();
+    }
+
+    public function getJumlahPendatangPerTujuanByWilayah($wilayah_id) {
+        return $this->db->select('tujuan, COUNT(id) as jumlah')
+                        ->from($this->table)
+                        ->where('status_verifikasi', 'Diterima')
+                        ->where('wilayah_id', $wilayah_id)
                         ->group_by('tujuan')
                         ->get()
                         ->result();
@@ -95,5 +119,26 @@ class PenghuniModel extends CI_Model {
                         ->where('longitude IS NOT NULL')
                         ->get()
                         ->result();
+    }
+
+    public function getPendatangByPJAndKaling() {
+        return $this->db->select('
+            p.nama_lengkap,
+            p.tujuan,
+            p.tanggal_masuk,
+            p.tanggal_keluar,
+            pj.nama as nama_pj,
+            pj.id as pj_id,
+            k.nama as nama_kaling,
+            k.id as kaling_id')
+            ->from('penghuni p')
+            ->join('penanggung_jawab pj', 'pj.id = p.penanggung_jawab_id')
+            ->join('kaling k', 'k.id = p.kaling_id')
+            ->where('p.status_verifikasi', 'Diterima')
+            ->order_by('pj.nama', 'ASC')
+            ->order_by('k.nama', 'ASC')
+            ->order_by('p.nama_lengkap', 'ASC')
+            ->get()
+            ->result();
     }
 }

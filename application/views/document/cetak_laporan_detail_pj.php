@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Laporan Jumlah Pendatang per Penanggung Jawab</title>
+    <title>Laporan Detail Pendatang Per Penanggung Jawab dan Kepala Lingkungan</title>
     <style>
         @page {
-            size: legal;
+            size: legal landscape;
             margin: 2.5cm;
         }
 
@@ -23,6 +23,7 @@
             margin-bottom: 20px;
             padding-bottom: 8px;
             border-spacing: 0;
+            table-layout: fixed;
         }
 
         .kop-table td {
@@ -31,18 +32,20 @@
         }
 
         .logo-cell {
-            width: 100px;
-            text-align: center;
+            width: 20%;
+            text-align: right;
+            padding-right: 20px;
         }
 
         .logo-cell img {
-            width: 150px;
+            width: 180px;
             height: auto;
-            display: block;
-            margin: 0 auto;
+            display: inline-block;
+            vertical-align: middle;
         }
 
         .header-text {
+            width: 50%;
             text-align: center;
             padding: 8px 0;
         }
@@ -87,23 +90,40 @@
         .data th, .data td {
             border: 1px solid #000;
             padding: 6px;
-            text-align: left;
             font-size: 11pt;
         }
 
         .data th {
             background-color: #f2f2f2;
             font-weight: bold;
+            text-align: center;
+        }
+
+        .pj-header {
+            background-color: #e6e6e6;
+            font-weight: bold;
+        }
+
+        .kaling-header {
+            background-color: #f2f2f2;
+            font-style: italic;
         }
 
         .footer {
             margin-top: 30px;
-            text-align: right;
-            font-size: 11pt;
+            page-break-inside: avoid;
         }
 
-        .total-row {
-            font-weight: bold;
+        .footer-content {
+            float: right;
+            text-align: center;
+            margin-right: 50px;
+        }
+
+        .tanggal {
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -125,37 +145,63 @@
 
     <div class="content">
         <div class="title">
-            LAPORAN JUMLAH PENDATANG PER PENANGGUNG JAWAB<br>
-            Periode: <?php echo date('d F Y'); ?>
+            LAPORAN DETAIL PENDATANG<br>
+            PER PENANGGUNG JAWAB DAN KEPALA LINGKUNGAN<br>
         </div>
+
+        <div class="tanggal">Per tanggal: <?= $tanggal ?></div>
 
         <table class="data">
             <thead>
                 <tr>
                     <th width="5%">No</th>
-                    <th width="40%">Nama Penanggung Jawab</th>
-                    <th width="25%">Jumlah Pendatang</th>
-                    <th width="30%">Persentase</th>
+                    <th width="20%">Nama Pendatang</th>
+                    <th width="30%">Tujuan</th>
+                    <th width="15%">Tanggal Masuk</th>
+                    <th width="15%">Tanggal Keluar</th>
+                    <th width="15%">Penanggung Jawab</th>
                 </tr>
             </thead>
             <tbody>
-                <?php $no = 1; foreach($pendatang_per_pj as $row): ?>
+                <?php 
+                $no = 1;
+                $current_pj = null;
+                $current_kaling = null;
+
+                foreach($penghuni_data as $row): 
+                    if ($current_pj !== $row->pj_id):
+                        $current_pj = $row->pj_id;
+                ?>
+                <tr class="pj-header">
+                    <td colspan="6">Penanggung Jawab: <?= $row->nama_pj ?></td>
+                </tr>
+                <?php 
+                    endif;
+                    if ($current_kaling !== $row->kaling_id):
+                        $current_kaling = $row->kaling_id;
+                ?>
+                <tr class="kaling-header">
+                    <td colspan="6">Kepala Lingkungan: <?= $row->nama_kaling ?></td>
+                </tr>
+                <?php endif; ?>
                 <tr>
-                    <td><?php echo $no++; ?></td>
-                    <td><?php echo $row->nama_pj; ?></td>
-                    <td><?php echo $row->jumlah_pendatang; ?> orang</td>
-                    <td><?php echo number_format(($row->jumlah_pendatang / $total_pendatang * 100), 2); ?>%</td>
+                    <td class="center"><?= $no++ ?></td>
+                    <td><?= $row->nama_lengkap ?></td>
+                    <td><?= $row->tujuan ?></td>
+                    <td class="center"><?= date('d-m-Y', strtotime($row->tanggal_masuk)) ?></td>
+                    <td class="center"><?= date('d-m-Y', strtotime($row->tanggal_keluar)) ?></td>
+                    <td><?= $row->nama_pj ?></td>
                 </tr>
                 <?php endforeach; ?>
-                <tr class="total-row">
-                    <td colspan="2">Total</td>
-                    <td><?php echo $total_pendatang; ?> orang</td>
-                    <td>100%</td>
-                </tr>
             </tbody>
         </table>
 
-     
+        <div class="signature">
+            <p>Jimbaran, <?php echo $tanggal; ?></p>
+            <p>Yang membuat pernyataan,</p>
+            <br><br><br>
+            <p><u><?php echo $penghuni->nama_lengkap; ?></u></p> 
+        </div>
     </div>
 </body>
 </html>

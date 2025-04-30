@@ -58,6 +58,7 @@
     </div>
 </div>
 
+<?php $this->load->view('partials/watermark'); ?>
 <?php $this->load->view('partials/footer'); ?>
 
 <script>
@@ -86,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
             : '<?= base_url('dashboard/surat/SP/') ?>' + uuid;
         
         Swal.fire({
-            title: 'Generate ' + title,
+            title: 'Cetak ' + title,
             text: 'Apakah anda ingin Mencetak ' + title + ' untuk ' + namaPenghuni + '?',
             icon: 'question',
             showCancelButton: true,

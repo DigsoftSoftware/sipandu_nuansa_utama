@@ -66,6 +66,7 @@
     </div>
 </div>
 
+<?php $this->load->view('partials/watermark'); ?>
 <?php $this->load->view('partials/footer'); ?>
 
 <script>
@@ -75,25 +76,19 @@
     }).addTo(map);
 
     var penghuniBaru = <?= json_encode($penghuni_baru) ?>;
-    
-    // Group markers that are too close to each other
     var markers = L.markerClusterGroup();
     
     penghuniBaru.forEach(function(p) {
-        // Create custom icon with adjusted positioning
         var customIcon = L.divIcon({
             className: 'custom-div-icon',
             html: "<div style='background-color: #4e73df; color: white; padding: 5px; border-radius: 5px; font-size: 12px; white-space: nowrap;'>" + p.nama + "</div>",
             iconSize: [200, 20],
-            iconAnchor: [100, 10] // Center the icon horizontally
+            iconAnchor: [100, 10] 
         });
-
-        // Add marker to the cluster group
         markers.addLayer(L.marker([p.lat, p.lng], {icon: customIcon})
             .bindPopup("<div style='text-align: center;'><strong>" + p.nama + "</strong><br>Penghuni Baru</div>"));
     });
 
-    // Add the marker cluster group to the map
     map.addLayer(markers);
     
     $(document).ready(function () {
@@ -106,12 +101,10 @@
         background: none;
         border: none;
     }
-    /* Ensure markers don't overlap */
     .leaflet-div-icon {
         background: transparent;
         border: none;
     }
-    /* Override cluster group styles if needed */
     .marker-cluster-small {
         background-color: rgba(77, 115, 223, 0.6);
     }

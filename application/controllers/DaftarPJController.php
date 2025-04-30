@@ -45,7 +45,11 @@ class DaftarPJController extends CI_Controller {
     
         $this->load->library('form_validation');
         $this->form_validation->set_rules('username', 'Username', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[penanggung_jawab.email]');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[penanggung_jawab.email]', [
+            'required'      => 'Email wajib diisi.',
+            'valid_email'   => 'Format email tidak valid.',
+            'is_unique'     => 'Email sudah digunakan, silakan gunakan email yang lain.'
+        ]);
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
         $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required');
@@ -65,7 +69,7 @@ class DaftarPJController extends CI_Controller {
         $token = $this->input->post('token');
         $valid_token = $this->TokenModel->validate_token($token);
         if (!$valid_token) {
-            echo json_encode(['status' => 'error', 'errors' => ['❌ Token sudah tidak valid atau kadaluarsa!']]);
+            echo json_encode(['status' => 'error', 'errors' => ['Token sudah tidak valid atau kadaluarsa!']]);
             return;
         }
     
@@ -92,7 +96,7 @@ class DaftarPJController extends CI_Controller {
     
         $this->TokenModel->mark_token_as_used($token, $pj_id);
     
-        echo json_encode(['status' => 'success', 'message' => '✅ Pendaftaran berhasil! Silakan login.']);
+        echo json_encode(['status' => 'success', 'message' => 'Pendaftaran berhasil! Silakan login.']);
     }
     
 }

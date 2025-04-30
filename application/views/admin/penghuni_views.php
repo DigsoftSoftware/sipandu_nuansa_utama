@@ -3,6 +3,26 @@
 <?php $this->load->view('partials/navbar'); ?>
 
 <div class="container-fluid">
+    
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="alert alert-warning border-0 shadow-sm rounded-3" role="alert">
+                <h5 class="mb-3">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Perhatian! Panduan Penggunaan
+                </h5>
+                <ul class="mb-0 ps-3" style="list-style-type: disc;">
+                    <li>Klik tombol <strong>Tambah Penghuni</strong> <i class="fas fa-plus text-primary"></i> untuk menambahkan data penghuni baru.</li>
+                    <li>Gunakan tombol <strong>Lihat Detail</strong> <i class="fas fa-eye text-info"></i> untuk melihat informasi lengkap penghuni.</li>
+                    <li>Jika data sudah sesuai, klik <strong>Terima</strong> <i class="fas fa-check-circle text-success"></i> untuk memverifikasi penghuni.</li>
+                    <li>Jika data tidak sesuai, klik <strong>Tolak</strong> <i class="fas fa-times-circle text-danger"></i> dan isikan alasan penolakan.</li>
+                    <li>Gunakan tombol <strong>Hapus</strong> <i class="fas fa-trash-alt text-danger"></i> untuk menghapus data penghuni yang tidak diperlukan.</li>
+                    <li>Pastikan hanya memilih data yang sudah <strong>terverifikasi Kepala Lingkungan</strong>.</li>
+                    <li>Cetak dokumen menggunakan kertas <strong>F4 atau legal</strong> dengan <strong>scale dokumen 100%</strong> untuk hasil terbaik.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -15,17 +35,21 @@
                 <table class="table table-bordered table-hover" id="myTable1">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Nama</th>
                             <th>NIK</th>
+                            <th>Penanggung Jawab</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <?php foreach($penghuni_diproses as $p): ?>
+                    <?php foreach($penghuni_diproses as $i => $p): ?>
                         <tr>
+                            <td><?= $i + 1 ?></td>
                             <td><?= $p->nama_lengkap ?></td>
                             <td><?= $p->nik ?></td>
+                            <td><?= $p->pj_nama ?></td>
                             <td><span class="badge bg-warning"><?= $p->status_verifikasi ?></span></td>
                             <td>
                                 <a href="<?= base_url('dashboard/penghuni/detail/'.$p->id) ?>" class="btn btn-info btn-sm" title="Lihat Detail">
@@ -50,25 +74,37 @@
             </div>            
         </div>
     </div>
+    
     <div class="card">
         <div class="card-body">
-            <h4>Data Terverifikasi</h4>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>Data Terverifikasi</h4>
+                <div class="d-flex align-items-center">
+                    <select class="form-select" name="" id="">
+                        <option value="">Pilih Penanggung Jawab</option>
+                    </select>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="myTable2">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Nama</th>
                             <th>NIK</th>
+                            <th>Penanggung Jawab</th>
                             <th>Status</th>
                             <th>Alasan Penolakan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($penghuni_terverifikasi as $p): ?>
+                        <?php foreach ($penghuni_terverifikasi as $i => $p): ?>
                             <tr>
+                                <td><?= $i+1 ?></td>
                                 <td><?= $p->nama_lengkap ?></td>
                                 <td><?= $p->nik ?></td>
+                                <td><?= $p->pj_nama ?></td>
                                 <td>
                                     <?php if ($p->status_verifikasi == 'Diterima'): ?>
                                         <span class="badge bg-success">Diterima</span>
@@ -94,10 +130,8 @@
     </div>
 </div>
 
+<?php $this->load->view('partials/watermark'); ?>
 <?php $this->load->view('partials/footer'); ?>
-
-<!-- SweetAlert2 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 function confirmDelete(id) {
@@ -180,17 +214,8 @@ function tolak(id) {
 }
 
 $(document).ready(function() {
-    $('#myTable1').DataTable({
-        "order": [[0, "asc"]],
-        "pageLength": 10,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Semua"]]
-    });
-
-    $('#myTable2').DataTable({
-        "order": [[0, "asc"]],
-        "pageLength": 10,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Semua"]]
-    });
+    $('#myTable1').DataTable({});
+    $('#myTable2').DataTable({});
 
     <?php if($this->session->flashdata('success')): ?>
         Swal.fire({

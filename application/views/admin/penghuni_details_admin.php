@@ -7,7 +7,7 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4 class="card-title mb-0">Detail Data Penghuni</h4>
-                <a href="<?= base_url('dashboard/penghuni/view') ?>" class="btn btn-secondary">Kembali</a>
+                <a href="<?= base_url('dashboard/penghuni/view') ?>" class="btn btn-danger">Kembali</a>
             </div>
 
             <div class="row">
@@ -73,18 +73,63 @@
                                 <td><?= $penghuni->jenis_kelamin ?></td>
                             </tr>
                             <tr>
+                                <th>Golongan Darah</th>
+                                <td><?= $penghuni->golongan_darah ?></td>
+                            </tr>
+                            <tr>
+                                <th>Agama</th>
+                                <td><?= $penghuni->agama ?></td>
+                            </tr>
+                            <tr>
+                                <th>Provinsi Asal</th>
+                                <td><?= $penghuni->provinsi_asal ?></td>
+                            </tr>
+                            <tr>
+                                <th>Kabupaten Asal</th>
+                                <td><?= $penghuni->kabupaten_asal ?></td>
+                            </tr>
+                            <tr>
+                                <th>Kecamatan Asal</th>
+                                <td><?= $penghuni->kecamatan_asal ?></td>
+                            </tr>
+                            <tr>
+                                <th>Kelurahan Asal</th>
+                                <td><?= $penghuni->kelurahan_asal ?></td>
+                            </tr>
+                            <tr>
                                 <th>Alamat Asal</th>
                                 <td>
-                                    <?= $penghuni->provinsi_asal ?>, 
-                                    <?= $penghuni->kabupaten_asal ?>, 
-                                    <?= $penghuni->kecamatan_asal ?>, 
-                                    <?= $penghuni->kelurahan_asal ?><br>
                                     <?= $penghuni->alamat_asal ?>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Alamat Sekarang</th>
                                 <td><?= $penghuni->alamat_sekarang ?></td>
+                            </tr>
+                            <tr>
+                                <th>RT / RW</th>
+                                <td>
+                                    <?= $penghuni->rt ?> /
+                                    <?= $penghuni->rw ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Kepala Lingkungan</th>
+                                <td>
+                                    <?= $penghuni->kaling_nama ?> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Penanggung Jawab</th>
+                                <td>
+                                    <?= $penghuni->pj_nama ?> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Wilayah</th>
+                                <td>
+                                    <?= $penghuni->wilayah ?> 
+                                </td>
                             </tr>
                             <tr>
                                 <th>Koordinat Lokasi</th>
@@ -104,25 +149,26 @@
                                     <?= date('d/m/Y', strtotime($penghuni->tanggal_keluar)) ?>
                                 </td>
                             </tr>
+                          
                         </table>
                     </div>
+                    
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<?php $this->load->view('partials/watermark'); ?>
 <?php $this->load->view('partials/footer'); ?>
 
 <script>
     $(document).ready(function() {
-        // Initialize map
         var map = L.map('map').setView([<?= $penghuni->latitude ?>, <?= $penghuni->longitude ?>], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
-        // Add marker
         L.marker([<?= $penghuni->latitude ?>, <?= $penghuni->longitude ?>])
             .addTo(map)
             .bindPopup('<?= $penghuni->nama_lengkap ?>');

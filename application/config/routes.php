@@ -68,52 +68,51 @@ $route['daftar/link_pj'] = 'DaftarPJController/link_pj';
 $route['daftar/pj/(:any)'] = 'DaftarPJController/pj/$1';
 
 // Route Dashboard
-$route['dashboard'] = 'HomeDashboardController/index'; 
+$route['dashboard'] = 'HomeController/index'; 
 
 // Routes Menu Admin
-$route['dashboard/admin/view'] = 'AdminDaftarDashboardController/view'; 
-$route['dashboard/admin/create'] = 'AdminDaftarDashboardController/create';  
-$route['dashboard/admin/store'] = 'AdminDaftarDashboardController/store';    
-$route['dashboard/admin/edit/(:num)'] = 'AdminDaftarDashboardController/edit/$1';  
-$route['dashboard/admin/update/(:num)'] = 'AdminDaftarDashboardController/update/$1';  
-$route['dashboard/admin/delete/(:num)'] = 'AdminDaftarDashboardController/delete/$1'; 
+$route['dashboard/admin/view'] = 'AdminController/view'; 
+$route['dashboard/admin/create'] = 'AdminController/create';  
+$route['dashboard/admin/store'] = 'AdminController/store';    
+$route['dashboard/admin/edit/(:any)'] = 'AdminController/edit/$1';  
+$route['dashboard/admin/update/(:num)'] = 'AdminController/update/$1';  
+$route['dashboard/admin/delete/(:num)'] = 'AdminController/delete/$1'; 
 
 // Routes Menu Kaling
-$route['dashboard/kaling/view'] = 'KalingDaftarDashboardController/view';
-$route['dashboard/kaling/create'] = 'KalingDaftarDashboardController/create';
-$route['dashboard/kaling/store'] = 'KalingDaftarDashboardController/store';
-$route['dashboard/kaling/edit/(:num)'] = 'KalingDaftarDashboardController/edit/$1';
-$route['dashboard/kaling/update/(:num)'] = 'KalingDaftarDashboardController/update/$1';
-$route['dashboard/kaling/delete/(:num)'] = 'KalingDaftarDashboardController/delete/$1';
+$route['dashboard/kaling/view'] = 'KalingController/view';
+$route['dashboard/kaling/create'] = 'KalingController/create';
+$route['dashboard/kaling/store'] = 'KalingController/store';
+$route['dashboard/kaling/edit/(:any)'] = 'KalingController/edit/$1';
+$route['dashboard/kaling/update/(:any)'] = 'KalingController/update/$1';
+$route['dashboard/kaling/delete/(:any)'] = 'KalingController/delete/$1';
 
 // Routes Menu Penanggung Jawab
-$route['dashboard/pj/view'] = 'PenanggungJawabDashboardController/view';
-$route['dashboard/pj/create'] = 'PenanggungJawabDashboardController/create';
-$route['dashboard/pj/store'] = 'PenanggungJawabDashboardController/store';
-$route['dashboard/pj/edit/(:num)'] = 'PenanggungJawabDashboardController/edit/$1';
-$route['dashboard/pj/update/(:num)'] = 'PenanggungJawabDashboardController/update/$1';
-$route['dashboard/pj/delete/(:num)'] = 'PenanggungJawabDashboardController/delete/$1';
+$route['dashboard/pj/view'] = 'PJController/view';
+$route['dashboard/pj/create'] = 'PJController/create';
+$route['dashboard/pj/store'] = 'PJController/store';
+$route['dashboard/pj/edit/(:num)'] = 'PJController/edit/$1';
+$route['dashboard/pj/update/(:num)'] = 'PJController/update/$1';
+$route['dashboard/pj/delete/(:num)'] = 'PJController/delete/$1';
 
 // Routes Menu Wilayah
-$route['dashboard/wilayah/view'] = 'WilayahDashboardController/view';
-$route['dashboard/wilayah/create'] = 'WilayahDashboardController/create';
-$route['dashboard/wilayah/store'] = 'WilayahDashboardController/store';
-$route['dashboard/wilayah/edit/(:num)'] = 'WilayahDashboardController/edit/$1';
-$route['dashboard/wilayah/update/(:num)'] = 'WilayahDashboardController/update/$1';
-$route['dashboard/wilayah/delete/(:num)'] = 'WilayahDashboardController/delete/$1';
+$route['dashboard/wilayah/view'] = 'WilayahController/view';
+$route['dashboard/wilayah/create'] = 'WilayahController/create';
+$route['dashboard/wilayah/store'] = 'WilayahController/store';
+$route['dashboard/wilayah/edit/(:num)'] = 'WilayahController/edit/$1';
+$route['dashboard/wilayah/update/(:num)'] = 'WilayahController/update/$1';
+$route['dashboard/wilayah/delete/(:num)'] = 'WilayahController/delete/$1';
 
 // Routes Menu Penghuni
-$route['dashboard/penghuni/view'] = 'PenghuniDashboardController/index';
-$route['dashboard/penghuni/detail/(:num)'] = 'PenghuniDashboardController/detail/$1';
-$route['dashboard/penghuni/create'] = 'PenghuniDashboardController/create';
-$route['dashboard/penghuni/create_pj'] = 'PenghuniDashboardController/create_pj';
-$route['dashboard/penghuni/store'] = 'PenghuniDashboardController/store';
-$route['dashboard/penghuni/store_pj'] = 'PenghuniDashboardController/store_pj';
-$route['dashboard/penghuni/create_admin'] = 'PenghuniDashboardController/create_admin';
-$route['dashboard/penghuni/store_admin'] = 'PenghuniDashboardController/store_admin';
-$route['dashboard/penghuni/viewpj'] = 'PenghuniDashboardController/index_pj';
-$route['dashboard/penghuni/verifikasi/(:num)/(:any)'] = 'PenghuniDashboardController/verifikasi/$1/$2';
-$route['dashboard/penghuni/delete/(:num)'] = 'PenghuniDashboardController/delete/$1';
+$route['dashboard/penghuni/view'] = 'PenghuniController/index';
+$route['dashboard/penghuni/viewpj'] = 'PenghuniController/index_pj';
+$route['dashboard/penghuni/create_pj'] = 'PenghuniController/create_pj';
+$route['dashboard/penghuni/store_pj'] = 'PenghuniController/store_pj';
+$route['dashboard/penghuni/detail/(:num)'] = 'PenghuniController/detail_admin/$1';
+$route['dashboard/penghuni/details/(:num)'] = 'PenghuniController/detail_pj/$1';
+$route['dashboard/penghuni/create_admin'] = 'PenghuniController/create_admin';
+$route['dashboard/penghuni/store_admin'] = 'PenghuniController/store_admin';
+$route['dashboard/penghuni/verifikasi/(:num)/(:any)'] = 'PenghuniController/verifikasi/$1/$2';
+$route['dashboard/penghuni/delete/(:num)'] = 'PenghuniController/delete/$1';
 
 // Routes untuk Surat
 $route['dashboard/surat/izin-tinggal'] = 'SuratController/form_surat_izin_tinggal';

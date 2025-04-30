@@ -7,7 +7,7 @@ class AuthController extends CI_Controller {
     }
 
     public function login() {
-        $data['title'] = "Login - SIPANDU NUANSA UTAMA";
+        $data['title'] = "Login | SIPANDU NUANSA UTAMA";
         $this->load->view('auth/login_views', $data);
         
     }
@@ -18,9 +18,8 @@ class AuthController extends CI_Controller {
         $user = $this->UserModel->get_by_username($username);
     
         if ($user) {
-            // Check if password needs to be hashed
+            
             if (!$this->_is_hashed($user->password)) {
-                // Hash the password and update in database
                 $hashed_password = password_hash($user->password, PASSWORD_BCRYPT);
                 $this->UserModel->update_password($user->id, $hashed_password);
                 $user->password = $hashed_password;

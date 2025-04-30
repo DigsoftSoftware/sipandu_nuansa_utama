@@ -2,8 +2,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Laporan Jumlah Pendatang Berdasarkan Tujuan</title>
+    <title>Laporan Jumlah Pendatang per Penanggung Jawab</title>
     <style>
+
         @page {
             size: legal landscape;
             margin: 2.5cm;
@@ -105,13 +106,8 @@
 
         .footer {
             margin-top: 30px;
-            page-break-inside: avoid;
-        }
-
-        .footer-content {
-            float: right;
-            text-align: center;
-            margin-right: 50px;
+            text-align: right;
+            font-size: 11pt;
         }
 
         .total-row {
@@ -147,45 +143,39 @@
 
     <div class="content">
         <div class="title">
-            LAPORAN JUMLAH PENDATANG BERDASARKAN TUJUAN<br>
-            WILAYAH <?= strtoupper($wilayah->wilayah) ?><br>
-            Periode: <?= $tanggal ?>
+            LAPORAN JUMLAH PENDATANG PER PENANGGUNG JAWAB<br>
+            Periode: <?php echo date('d F Y'); ?>
         </div>
 
         <table class="data">
             <thead>
                 <tr>
                     <th width="5%">No</th>
-                    <th width="45%">Tujuan</th>
-                    <th width="25%">Jumlah Pendatang</th>
-                    <th width="25%">Persentase</th>
+                    <th width="30%">Nama Penanggung Jawab</th>
+                    <th width="15%">Jumlah Pendatang</th>
+                    <th width="50%">Nama Pendatang</th>
                 </tr>
             </thead>
             <tbody>
-                <?php $no = 1; foreach($pendatang_per_tujuan as $row): ?>
+                <?php $no = 1; foreach($pendatang_per_pj as $row): ?>
                 <tr>
                     <td class="center"><?php echo $no++; ?></td>
-                    <td><?php echo $row->tujuan; ?></td>
-                    <td class="center"><?php echo $row->jumlah; ?> orang</td>
-                    <td class="center"><?php echo number_format(($row->jumlah / $total_pendatang * 100), 2); ?>%</td>
+                    <td class="center"><?php echo $row->nama_pj; ?></td>
+                    <td class="center"><?php echo $row->jumlah_pendatang; ?> orang</td>
+                    <td>
+                        <ul>
+                            <?php 
+                            $nama_pendatang_array = explode(',', $row->nama_pendatang);
+                            foreach($nama_pendatang_array as $nama) {
+                                echo '<li>' . trim($nama) . '</li>';
+                            }
+                            ?>
+                        </ul>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
-                <tr class="total-row">
-                    <td class="center" colspan="2">Total</td>
-                    <td class="center"><?php echo $total_pendatang; ?> orang</td>
-                    <td class="center">100%</td>
-                </tr>
             </tbody>
         </table>
-
-        <div class="footer">
-            <div class="footer-content">
-                <p>Jimbaran, <?= $tanggal ?></p>
-                <p>Kepala Lingkungan <?= $wilayah->wilayah ?></p>
-                <br><br><br>
-                <p><u><?= $kaling->nama ?></u></p>
-            </div>
-        </div>
     </div>
 </body>
 </html>

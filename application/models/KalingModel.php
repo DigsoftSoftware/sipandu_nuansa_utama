@@ -25,8 +25,26 @@ class KalingModel extends CI_Model {
         return $this->db->get()->row();
     }
     
+    public function getByUuid($uuid) {
+        $this->db->select('kaling.*, wilayah.wilayah as wilayah, users.username as username');
+        $this->db->from('kaling');
+        $this->db->join('wilayah', 'wilayah.id = kaling.wilayah_id', 'left');
+        $this->db->join('users', 'users.id = kaling.user_id', 'left');
+        $this->db->where('kaling.uuid', $uuid);
+        return $this->db->get()->row();
+    }
+
     public function insert($data) {
+        $data['uuid'] = sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0x0fff) | 0x4000,
+            mt_rand(0, 0x3fff) | 0x8000,
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+        );
+        
         $this->db->insert('kaling', $data);
+        return $this->db->insert_id();
     }
 
     public function update($id, $data) {

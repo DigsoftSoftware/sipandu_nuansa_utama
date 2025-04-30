@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class PenghuniDashboardController extends MY_Controller {
+class PenghuniController extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -23,16 +23,27 @@ class PenghuniDashboardController extends MY_Controller {
         $this->load->view('admin/penghuni_views', $data);
     }
     
-    public function detail($id)
+    public function detail_admin($id)
     {
         $this->load->model('PenghuniModel');
-        $data['penghuni'] = $this->PenghuniModel->getById($id);
+        $data['penghuni'] = $this->PenghuniModel->getByid($id);
 
         if (!$data['penghuni']) {
             show_404();
         }
 
-        $this->load->view('admin/penghuni_view', $data);
+        $this->load->view('admin/penghuni_details_admin', $data);
+    }
+    public function detail_pj($id)
+    {
+        $this->load->model('PenghuniModel');
+        $data['penghuni'] = $this->PenghuniModel->getByid($id);
+
+        if (!$data['penghuni']) {
+            show_404();
+        }
+
+        $this->load->view('pj/penghuni_details_pj', $data);
     }
 
     public function verifikasi($id, $status) {
@@ -254,7 +265,7 @@ class PenghuniDashboardController extends MY_Controller {
 
         $config['upload_path'] = FCPATH . 'uploads/';
         $config['allowed_types'] = 'jpg|jpeg|png|pdf';
-        $config['max_size'] = '2048'; // 2MB
+        $config['max_size'] = '2048'; 
         $config['encrypt_name'] = TRUE;
 
         if (!is_dir($config['upload_path'])) {
@@ -271,16 +282,6 @@ class PenghuniDashboardController extends MY_Controller {
 
         $upload_data = $this->upload->data();
         return $upload_data['file_name'];
-    }
-
-    private function hitungLamaTinggal($masuk, $keluar) {
-        if ($masuk && $keluar && strtotime($masuk) && strtotime($keluar)) {
-            $start = date_create($masuk);
-            $end = date_create($keluar);
-            $diff = date_diff($start, $end);
-            return $diff->days . ' hari';
-        }
-        return 'Tidak valid';
     }
 
     public function delete($id) {

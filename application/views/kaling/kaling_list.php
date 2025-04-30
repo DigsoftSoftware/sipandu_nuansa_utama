@@ -21,21 +21,27 @@
                     <table id="myTable" class="table table-striped table-bordered text-nowrap align-middle">
                         <thead>
                             <tr>
+                                <th>No</th>
                                 <th>Username</th>
                                 <th>Nama</th>
+                                <th>Alamat</th>
+                                <th>No Handphone</th>
                                 <th>Wilayah</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($kaling as $row): ?>
+                            <?php foreach($kaling as $i => $row): ?>
                                 <tr>
+                                    <td><?= $i+1 ?></td>
                                     <td><?= $row->username ?></td>
                                     <td><?= $row->nama ?></td>
+                                    <td><?= $row->alamat ?></td>
+                                    <td><?= $row->no_hp ?></td>
                                     <td><?= $row->wilayah ?></td>
                                     <td class="text-center">
-                                        <a href="<?= base_url('dashboard/kaling/edit/'.$row->id) ?>" class="btn btn-warning btn-sm me-1">Edit</a>
-                                        <button onclick="hapusKaling(<?= $row->id ?>)" class="btn btn-danger btn-sm">Hapus</button>
+                                        <a href="<?= base_url('dashboard/kaling/edit/'.$row->uuid) ?>" class="btn btn-warning btn-sm me-1">Edit</a>
+                                        <button onclick="hapusKaling('<?= $row->uuid ?>')" class="btn btn-danger btn-sm">Hapus</button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -48,6 +54,7 @@
     </div>
 </div>
 
+<?php $this->load->view('partials/watermark'); ?>
 <?php $this->load->view('partials/footer'); ?>
 
 <script>

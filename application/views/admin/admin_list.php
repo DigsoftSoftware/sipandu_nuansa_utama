@@ -22,28 +22,28 @@
                     <table id="myTable" class="table table-striped table-bordered text-nowrap align-middle">
                         <thead>
                             <tr>
+                                <th>No</th>
                                 <th>Nama</th>
                                 <th>Username</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (!empty($admins)): ?>
-                                <?php foreach($admins as $admin): ?>
-                                    <tr>
-                                        <td><?= $admin->nama ?></td>
-                                        <td><?= $admin->username ?></td>
-                                        <td class="text-center">
+                            <?php foreach($admins as $i => $admin): ?>
+                                <tr>
+                                    <td><?= $i+1 ?></td>
+                                    <td><?= $admin->nama ?></td>
+                                    <td><?= $admin->username ?></td>
+                                    <td class="text-center">
+                                        <?php if ($admin->id != $this->session->userdata('admin_id')): ?>
                                             <a href="<?= base_url('dashboard/admin/edit/'.$admin->id) ?>" class="btn btn-warning btn-sm me-1">Edit</a>
                                             <button onclick="hapusAdmin(<?= $admin->id ?>)" class="btn btn-danger btn-sm">Hapus</button>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <tr>
-                                    <td colspan="3" class="text-center text-muted">Belum ada data admin.</td>
+                                        <?php else: ?>
+                                            <span class="badge bg-secondary">Sedang Login</span>
+                                        <?php endif; ?>
+                                    </td>
                                 </tr>
-                            <?php endif; ?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -52,6 +52,7 @@
     </div>
 </div>
 
+<?php $this->load->view('partials/watermark'); ?>
 <?php $this->load->view('partials/footer'); ?>
 
 <script>

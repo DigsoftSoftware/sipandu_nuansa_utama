@@ -35,6 +35,12 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= site_url('dashboard/wilayah/view'); ?>">
+                    <i class="ti ti-map"></i>
+                    <span class="hide-menu">Data Wilayah</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="<?= site_url('dashboard/kaling/view'); ?>">
                     <i class="ti ti-users-group"></i>
                     <span class="hide-menu">Data Kepala Lingkungan</span>
@@ -47,12 +53,6 @@
                     <a class="sidebar-link" href="<?= site_url('dashboard/pj/view'); ?>">
                     <i class="ti ti-user-cog"></i>
                     <span class="hide-menu">Data Penanggung Jawab</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= site_url('dashboard/wilayah/view'); ?>">
-                    <i class="ti ti-map"></i>
-                    <span class="hide-menu">Data Wilayah</span>
                     </a>
                 </li>
                 <li class="sidebar-item">

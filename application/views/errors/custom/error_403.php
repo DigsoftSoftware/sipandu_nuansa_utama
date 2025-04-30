@@ -14,4 +14,4 @@
     </div>
 </div>
 
-<?php $this->load->view('partials/footer'); ?>
+

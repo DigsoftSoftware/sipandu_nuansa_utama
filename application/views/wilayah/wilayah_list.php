@@ -19,13 +19,15 @@
             <table id="myTable" class="table table-striped table-bordered text-nowrap align-middle">
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th>Wilayah</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($wilayah as $w): ?>
+                    <?php foreach($wilayah as $i => $w): ?>
                     <tr>
+                        <td><?= $i + 1 ?></td>
                         <td><?= $w->wilayah ?></td>
                         <td>
                             <a href="<?= base_url('dashboard/wilayah/edit/' . $w->id) ?>" class="btn btn-warning btn-sm">Edit</a>
@@ -39,7 +41,7 @@
     </div>
 </div>
 
-
+<?php $this->load->view('partials/watermark'); ?>
 <?php $this->load->view('partials/footer'); ?>
 
 

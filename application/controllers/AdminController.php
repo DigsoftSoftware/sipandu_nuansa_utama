@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class AdminDaftarDashboardController extends MY_Controller {
+class AdminController extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -55,8 +55,8 @@ class AdminDaftarDashboardController extends MY_Controller {
         $admin = $this->AdminModel->getById($id);
 
         if (!$admin) {
-            $this->session->set_flashdata('error', 'Data admin tidak ditemukan.');
-            redirect('dashboard/admin/view');
+            $this->session->set_flashdata('error', 'Anda tidak dapat menghapus akun Anda sendiri.');
+            redirect('admin');
             return;
         }
 

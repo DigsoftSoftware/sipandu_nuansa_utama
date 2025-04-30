@@ -175,9 +175,18 @@
                 <td><?php echo $penghuni->jenis_kelamin; ?></td>
             </tr>
             <tr>
+                <td>Agama</td>
+                <td>:</td>
+                <td><?php echo $penghuni->agama; ?></td>
+            </tr>
+            <tr>
                 <td>Alamat Asal</td>
                 <td>:</td>
-                <td><?php echo $penghuni->alamat_asal; ?></td>
+                <td>
+                    <?php echo $penghuni->alamat_asal; ?>
+                    <?php echo $penghuni->provinsi_asal; ?>
+                    <?php echo $penghuni->kabupaten_asal; ?>
+                </td>
             </tr>
             <tr>
                 <td>Alamat Sekarang</td>

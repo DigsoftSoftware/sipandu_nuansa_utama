@@ -1,6 +1,5 @@
 <?php $this->load->view('partials/header'); ?>
 
-
 <div class="container-fluid">
     <div class="text-center mt-5">
         <i class="fa fa-question-circle fa-5x text-danger mb-3"></i>
@@ -13,4 +12,3 @@
     </div>
 </div>
 
-<?php $this->load->view('partials/footer'); ?>

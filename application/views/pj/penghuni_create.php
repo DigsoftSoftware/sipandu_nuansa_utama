@@ -18,10 +18,6 @@
             <form action="<?= base_url('dashboard/penghuni/store_pj') ?>" method="POST" enctype="multipart/form-data">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4 class="card-title mb-0">Tambah Data Penghuni</h4>
-                <div>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                    <a href="<?= base_url('dashboard/penghuni/viewpj') ?>" class="btn btn-secondary">Kembali</a>
-                </div>
             </div>
                 <div class="row">
                     <!-- ALERT PERHATIAN -->
@@ -247,11 +243,16 @@
                         </div>
                     </div>
                 </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <a href="<?= base_url('dashboard/penghuni/viewpj') ?>" class="btn btn-danger">Kembali</a>
+                </div>
             </form>
         </div>
     </div>
 </div>
 
+<?php $this->load->view('partials/watermark'); ?>
 <?php $this->load->view('partials/footer'); ?>
 
 <script>

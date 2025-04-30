@@ -20,20 +20,24 @@
                 <table id="pjTable" class="table table-striped">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Nama</th>
                             <th>Email</th>
                             <th>Username</th>
                             <th>No Handphone</th>
+                            <th>Wilayah</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($pj as $p): ?>
+                        <?php foreach($pj as $i => $p): ?>
                         <tr>
+                            <td><?= $i+1 ?></td>
                             <td><?= $p->nama ?></td>
-                            <td><?= $p->email ?></td>
                             <td><?= $p->username ?></td>
+                            <td><?= $p->email ?></td>    
                             <td><?= $p->no_hp ?></td>
+                            <td><?= $p->wilayah_nama ?></td>
                             <td>
                                 <a href="<?= base_url('dashboard/pj/edit/'.$p->id) ?>" class="btn btn-warning btn-sm">Edit</a>
                                 <button onclick="hapusPJ(<?= $p->id ?>)" class="btn btn-danger btn-sm">Hapus</button>
@@ -48,7 +52,7 @@
     </div>
 </div>
 
-
+<?php $this->load->view('partials/watermark'); ?>
 <?php $this->load->view('partials/footer'); ?>
 
 <script>

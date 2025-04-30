@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class HomeDashboardController extends MY_Controller {
+class HomeController extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->check_role(['Admin', 'Kepala Lingkungan']);

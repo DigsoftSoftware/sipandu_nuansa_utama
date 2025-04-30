@@ -34,4 +34,5 @@
         </div>
     </div>
 </div>
+<?php $this->load->view('partials/watermark'); ?>
 <?php $this->load->view('partials/footer'); ?>

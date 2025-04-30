@@ -13,14 +13,15 @@
 
             <form action="<?= base_url('dashboard/wilayah/update/' . $wilayah->id) ?>" method="POST">
                 <div class="mb-3">
-                    <label for="wilayah">Nama Wilayah</label>
+                    <label for="wilayah" class="form-label">Nama Wilayah</label>
                     <input type="text" name="wilayah" value="<?= $wilayah->wilayah ?>" class="form-control" required>
                 </div>
-                <button type="submit" class="btn btn-success">Update</button>
-                <a href="<?= base_url('dashboard/wilayah/view') ?>" class="btn btn-secondary">Kembali</a>
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a href="<?= base_url('dashboard/wilayah/view') ?>" class="btn btn-danger">Kembali</a>
             </form>
         </div>
     </div>
 </div>
 
+<?php $this->load->view('partials/watermark'); ?>
 <?php $this->load->view('partials/footer'); ?>
